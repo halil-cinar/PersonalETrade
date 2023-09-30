@@ -33,8 +33,8 @@ namespace ETrade.Entities.Concrete
         [Column("categoryId")]
         public long CategoryId { get; set; }
 
-        [Column("seller")]
-        public long SellerId { get; set; }
+        [Column("userId")]
+        public long UserId { get; set; }
 
         [Column("rating")]
         public Double Rating { get; set; }
@@ -62,8 +62,8 @@ namespace ETrade.Entities.Concrete
         [ForeignKey("CategoryId")]
         public virtual CategoryEntity Category { get; set; }
 
-        [ForeignKey("SellerId")]
-        public virtual SellerEntity Seller { get; set; }
+        [ForeignKey("userId")]
+        public virtual UserEntity User { get; set; }
 
         
         //[ForeignKey("StatusId")]

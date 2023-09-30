@@ -23,12 +23,7 @@ namespace ETrade.Entities.Concrete
         [Column("isSentAbroad")]
         public bool IsSentAbroad { get; set; }
 
-        [Column("sellerId")]
-        public long? SellerId { get; set; }
-
-        [ForeignKey("SellerId")]
-        public virtual SellerEntity? Seller { get; set; }
-
+        
         public virtual ICollection<OrderDetailEntity> OrderDetails { get; set; }
 
 

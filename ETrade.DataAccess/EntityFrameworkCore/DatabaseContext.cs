@@ -64,12 +64,7 @@ namespace ETrade.DataAccess.EntityFrameworkCore
 
         public DbSet<RoleEntity> Roles { get; set; }
 
-        public DbSet<SellerAddressEntity> SellerAddresses { get; set; }
-
-        public DbSet<SellerCommentEntity> SellerComments { get; set;}
-
-        public DbSet<SellerEntity> Sellers { get; set; }
-
+        
         public DbSet<UserAddressEntity> UserAddresses { get; set; }
 
         public DbSet<UserChatEntity> UserChats { get; set; }

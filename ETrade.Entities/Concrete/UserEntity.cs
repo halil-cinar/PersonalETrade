@@ -52,7 +52,6 @@ namespace ETrade.Entities.Concrete
         public virtual ICollection<CommentEntity> Comments { get; set; }
         public virtual ICollection<MessageEntity> Messages { get; set; }
         public virtual ICollection<OrderEntity> Orders { get; set; }
-        public virtual ICollection<SellerEntity> Sellers { get; set; }
         public virtual ICollection<UserAddressEntity> UserAddresses { get; set; }
         public virtual ICollection<UserCartEntity> UserCarts { get; set; }
         public virtual ICollection<UserChatEntity> UserChats { get; set; }
