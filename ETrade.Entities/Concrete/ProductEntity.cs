@@ -62,7 +62,7 @@ namespace ETrade.Entities.Concrete
         [ForeignKey("CategoryId")]
         public virtual CategoryEntity Category { get; set; }
 
-        [ForeignKey("userId")]
+        [ForeignKey("UserId")]
         public virtual UserEntity User { get; set; }
 
         

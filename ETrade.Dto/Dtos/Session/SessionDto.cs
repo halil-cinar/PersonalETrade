@@ -33,8 +33,8 @@ namespace ETrade.Dto.Dtos. Session
         [JsonProperty(PropertyName= "notifyToken")]
         public string NotifyToken { get; set; }
 
-        [JsonProperty(PropertyName= "token")]
-        public Guid Token { get;set; }
+        //[JsonProperty(PropertyName= "token")]
+        //public Guid Token { get;set; }
 
         
        

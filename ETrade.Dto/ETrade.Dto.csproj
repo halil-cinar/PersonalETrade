@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ETrade.Entities\ETrade.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enum\" />
+  </ItemGroup>
+
 </Project>

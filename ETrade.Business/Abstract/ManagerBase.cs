@@ -79,4 +79,6 @@ namespace ETrade.Business.Abstract
             repository.Update(entity);
         }
     }
+
+   
 }

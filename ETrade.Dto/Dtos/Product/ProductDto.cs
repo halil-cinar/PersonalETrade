@@ -34,8 +34,8 @@ namespace ETrade.Dto.Dtos. Product
         [JsonProperty(PropertyName= "categoryId")]
         public long CategoryId { get; set; }
 
-        [JsonProperty(PropertyName= "seller")]
-        public long SellerId { get; set; }
+        [JsonProperty(PropertyName= "userId")]
+        public long UserId { get; set; }
 
         [JsonProperty(PropertyName= "rating")]
         public Double Rating { get; set; }

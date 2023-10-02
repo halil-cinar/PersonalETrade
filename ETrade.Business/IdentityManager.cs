@@ -29,41 +29,53 @@ namespace ETrade.Business
         public BusinessLayerResult<IdentityListDto> AddIdentity(string password,string userName,long userId)
         {
             var response = new BusinessLayerResult<IdentityListDto>();
-            try
+            using (var scope = new TransactionScope())
             {
-                var entity = new IdentityEntity
+                try
                 {
-                    PasswordSalt = ExtensionMethods.GenerateRandomString(13),
-                    PasswordHash ="",
-                    UserName=userName,
-                    UserId = userId,
-                    CreateTime = DateTime.Now,
-                    CreateUserName = UserName,
-                    CreateIPAddress = IpAddress,
-                    IsDeleted = false,
-                    LastTransaction = "Identity has been added"
-                };
-                entity.PasswordHash=ExtensionMethods.CalculateMD5Hash(password+entity.PasswordSalt);
-                var validationResult = Validator.Validate(entity);
-
-                if (validationResult.IsValid)
-                {
-                    Add(entity);
-                    response.Result = mapper.Map<IdentityListDto>(entity);
-                }
-                if (validationResult.Errors.Count > 0)
-                {
-                    foreach (var error in validationResult.Errors)
+                    var oldIdentities=GetAll(x=> x.UserId == userId&&x.isActive==true);
+                    foreach(var oldIdentity in oldIdentities)
                     {
-                        response.AddErrorMessages(ErrorMessageCode.IdentityAddIdentityValidationError, error.ErrorMessage);
+                        oldIdentity.isActive= false;
+                        oldIdentity.UpdateIpAddress = IpAddress;
+                        oldIdentity.UpdateTime = DateTime.Now;  
+                        oldIdentity.UpdateUserName= userName;
+                        Update(oldIdentity);
+                    }
+                    var entity = new IdentityEntity
+                    {
+                        PasswordSalt = ExtensionMethods.GenerateRandomString(13),
+                        PasswordHash = "",
+                        UserName = userName,
+                        UserId = userId,
+                        CreateTime = DateTime.Now,
+                        CreateUserName = UserName,
+                        CreateIPAddress = IpAddress,
+                        IsDeleted = false,
+                        LastTransaction = "Identity has been added"
+                    };
+                    entity.PasswordHash = ExtensionMethods.CalculateMD5Hash(password + entity.PasswordSalt);
+                    var validationResult = Validator.Validate(entity);
+
+                    if (validationResult.IsValid)
+                    {
+                        Add(entity);
+                        response.Result = mapper.Map<IdentityListDto>(entity);
+                    }
+                    if (validationResult.Errors.Count > 0)
+                    {
+                        foreach (var error in validationResult.Errors)
+                        {
+                            response.AddErrorMessages(ErrorMessageCode.IdentityAddIdentityValidationError, error.ErrorMessage);
+                        }
+
                     }
 
                 }
-
-            }
-            catch (Exception ex)
-            {
-                response.AddErrorMessages(ErrorMessageCode.IdentityAddIdentityExceptionError, ex.Message);
+                catch (Exception ex)
+                {
+                    response.AddErrorMessages(ErrorMessageCode.IdentityAddIdentityExceptionError, ex.Message);
+                }
             }
             return response;
         }

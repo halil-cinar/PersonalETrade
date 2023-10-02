@@ -11,7 +11,7 @@ namespace ETrade.DataAccess.EntityFrameworkCore
 {
     public class DatabaseContext:DbContext
     {
-        public DatabaseContext():base("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ETradeDatabase;Integrated Security=True;")
+        public DatabaseContext():base("server=DESKTOP-FOCIP6T;Initial Catalog=PersonalETradeDatabase;Integrated Security=True;")
         {
 
         }
@@ -78,6 +78,10 @@ namespace ETrade.DataAccess.EntityFrameworkCore
         public DbSet<StatusEntity> Statuses { get; set; }
 
         public DbSet<SessionEntity> Sessions { get; set; }
+
+        public DbSet<MethodEntity> Methods { get; set; }    
+
+        public DbSet<RoleMethodEntity> RoleMethods { get; set; }
 
 
     }

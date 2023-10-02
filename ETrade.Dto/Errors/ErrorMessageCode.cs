@@ -122,6 +122,26 @@ namespace ETrade.Dto.Errors
         CountryGetCountryExceptionError,
         SellerAddSellerValidationError,
         SellerAddSellerExceptionError,
-        SellerFilterSellerExceptionError
+        SellerFilterSellerExceptionError,
+        ProductAddProductValidationError,
+        ProductAddProductExceptionError,
+        ProductUpdateProductExceptionError,
+        ProductUpdateProductValidationError,
+        ProductDeleteProductExceptionError,
+        ProductFilterProductExceptionError,
+        ProductFilterProductListError,
+        ProductFilterProductListExceptionError,
+        ProductGetProductNotFoundExceptionError,
+        ProductGetProductExceptionError,
+        SessionAddSessionValidationError,
+        SessionAddSessionExceptionError,
+        SessionUpdateSessionValidationError,
+        SessionUpdateSessionExceptionError,
+        SessionDeleteSessionExceptionError,
+        SessionFilterSessionExceptionError,
+        SessionFilterSessionListError,
+        SessionFilterSessionListExceptionError,
+        SessionGetSessionNotFoundExceptionError,
+        SessionGetSessionExceptionError
     }
 }
