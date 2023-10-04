@@ -142,6 +142,11 @@ namespace ETrade.Dto.Errors
         SessionFilterSessionListError,
         SessionFilterSessionListExceptionError,
         SessionGetSessionNotFoundExceptionError,
-        SessionGetSessionExceptionError
+        SessionGetSessionExceptionError,
+        AccountLogInWrongUsernameOrPassword,
+        AccountLogInExceptionError,
+        AccountAnonymousLogInExceptionError,
+        AccountLogoutExceptionError,
+        AccountGetSessionByIpExceptionError
     }
 }

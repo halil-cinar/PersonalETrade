@@ -16,10 +16,10 @@ namespace ETrade.Dto.Dtos. Session
         {
             
         [JsonProperty(PropertyName= "identityId")]
-        public long IdentityId { get;set; }
+        public long? IdentityId { get;set; }
 
         [JsonProperty(PropertyName= "userId")]
-        public long UserId { get; set; } 
+        public long? UserId { get; set; } 
 
         [JsonProperty(PropertyName= "expiryDate")]
         public DateTime ExpiryDate { get; set; }
@@ -36,9 +36,13 @@ namespace ETrade.Dto.Dtos. Session
         [JsonProperty(PropertyName= "token")]
         public Guid Token { get;set; }
 
-        
-       
-    
-        }
+        [JsonProperty(PropertyName ="isActive")]
+        public bool? IsActive { get; set; }
+
+
+
+
+
     }
+}
     

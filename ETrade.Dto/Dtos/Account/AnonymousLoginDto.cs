@@ -8,20 +8,14 @@ using System.Threading.Tasks;
 
 namespace ETrade.Dto.Dtos.Account
 {
-    public class LogInDto
+    public class AnonymousLoginDto
     {
-        [JsonProperty(PropertyName = "userName")]
-        public string UserName { get; set; }
-
-        [JsonProperty(PropertyName = "password")]
-        public string Password { get; set; }
 
         [JsonProperty(PropertyName = "deviceType")]
         public DeviceType DeviceType { get; set; }
 
-        [JsonProperty(PropertyName ="notifyToken")]
+        [JsonProperty(PropertyName = "notifyToken")]
         public string NotifyToken { get; set; }
-
 
     }
 }

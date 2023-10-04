@@ -13,10 +13,10 @@ namespace ETrade.Entities.Concrete
     public class SessionEntity:EntityBase
     {
         [Column("identityId")]
-        public long IdentityId { get;set; }
+        public long? IdentityId { get;set; }
 
         [Column("userId")]
-        public long UserId { get; set; } 
+        public long? UserId { get; set; } 
 
         [Column("expiryDate")]
         public DateTime ExpiryDate { get; set; }
@@ -32,6 +32,9 @@ namespace ETrade.Entities.Concrete
 
         [Column("token")]
         public Guid Token { get;set; }
+
+        [Column("isActive")]
+        public bool? IsActive { get; set; }
 
         [ForeignKey("IdentityId")]
         public virtual IdentityEntity Identity { get; set; }

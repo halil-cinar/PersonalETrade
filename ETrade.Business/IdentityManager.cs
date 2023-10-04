@@ -290,9 +290,9 @@ namespace ETrade.Business
             return null;
         }
 
-        public BusinessLayerResult<bool> CheckPassword(IdentityDto identityDto)
+        public BusinessLayerResult<IdentityListDto> CheckPassword(IdentityDto identityDto)
         {
-            var response = new BusinessLayerResult<bool>();
+            var response = new BusinessLayerResult<IdentityListDto>();
 
             try
             {
@@ -302,20 +302,20 @@ namespace ETrade.Business
                     var passwordHash=ExtensionMethods.CalculateMD5Hash(identityDto.Password+identity.PasswordSalt);
                     if(passwordHash.Equals(identity.PasswordHash))
                     {
-                        response.Result = true;
+                        response.Result = mapper.Map<IdentityListDto>(identity);
                     }
                     else
                     {
-                        response.Result = false;
+                        response.Result = null;
                     }
                 }
                 else
                 {
-                    response.Result = false;
+                    response.Result = null;
                 }
             }catch(Exception ex)
             {
-                response.Result = false;
+                response.Result = null;
                 response.AddErrorMessages(ErrorMessageCode.IdentityCheckPasswordExceptionError,ex.Message);
             }
             return response;

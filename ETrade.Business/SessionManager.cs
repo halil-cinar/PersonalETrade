@@ -39,6 +39,7 @@ namespace ETrade.Business
                     IdentityId= sessionDto.IdentityId,
                     IpAddress= sessionDto.IpAddress,
                     NotifyToken= sessionDto.NotifyToken,
+                    IsActive=true,
                     UserId= sessionDto.UserId,
                     Token= Guid.NewGuid(),
                     
@@ -275,7 +276,7 @@ namespace ETrade.Business
             var response = new BusinessLayerResult<SessionListDto>();
             try
             {
-                var entity = Get(x=>x.Token==token);
+                var entity = Get(x => x.Token == token);
                 if (entity != null)
                 {
                     response.Result = mapper.Map<SessionListDto>(entity);
@@ -292,6 +293,27 @@ namespace ETrade.Business
             }
             return response;
         }
+
+        public BusinessLayerResult<SessionListDto> GetSessionByIpAddress(string ipAdress)
+        {
+            var response = new BusinessLayerResult<SessionListDto>();
+            try
+            {
+                var entity = Get(x => x.IpAddress.Equals(ipAdress)&&(x.ExpiryDate==null||x.ExpiryDate>DateTime.Now));
+               
+                    response.Result = mapper.Map<SessionListDto>(entity);
+
+                
+                
+            }
+            catch (Exception ex)
+            {
+                response.AddErrorMessages(ErrorMessageCode.SessionGetSessionExceptionError, ex.Message);
+            }
+            return response;
+        }
+
+
 
 
 
