@@ -1,4 +1,5 @@
 
+using ETrade.Dto.Dtos.Media;
 using ETrade.Entities.Concrete;
 using Newtonsoft.Json;
 using System;
@@ -26,13 +27,14 @@ namespace ETrade.Dto.Dtos. CarouselItem
         [JsonProperty(PropertyName= "subtitle")]
         public string Subtitle { get; set; }
 
-   
+        [JsonProperty(PropertyName = "backgroudImage")]
+        public MediaDto BackgroudImage { get; set; }
 
 
 
 
 
-    
-        }
+
+    }
     }
     

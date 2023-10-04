@@ -26,13 +26,14 @@ namespace ETrade.Dto.Dtos. CarouselItem
         [JsonProperty(PropertyName= "subtitle")]
         public string Subtitle { get; set; }
 
+        [JsonProperty(PropertyName = "logoId")]
+        public long? LogoId { get; set; }
 
 
 
 
 
 
-    
-        }
+    }
     }
     

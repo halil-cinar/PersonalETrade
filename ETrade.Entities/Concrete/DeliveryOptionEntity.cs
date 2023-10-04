@@ -23,7 +23,12 @@ namespace ETrade.Entities.Concrete
         [Column("isSentAbroad")]
         public bool IsSentAbroad { get; set; }
 
-        
+        [Column("logoId")]
+        public long? LogoId { get; set; }
+
+
+        [ForeignKey("LogoId")]
+        public MediaEntity Logo { get; set; }
         public virtual ICollection<OrderDetailEntity> OrderDetails { get; set; }
 
 

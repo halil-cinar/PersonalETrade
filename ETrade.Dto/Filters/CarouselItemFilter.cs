@@ -13,8 +13,7 @@ namespace ETrade.Dto.Filters
         public class CarouselItemFilter
         {
             
-        [JsonProperty(PropertyName= "backgroudImageId")]
-        public long BackgroudImageId { get; set; }
+       
 
         [JsonProperty(PropertyName= "link")]
         public string Link { get; set; }

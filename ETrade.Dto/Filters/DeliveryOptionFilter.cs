@@ -16,14 +16,18 @@ namespace ETrade.Dto.Filters
         [JsonProperty(PropertyName= "brandName")]
         public string BrandName { get; set; }
 
-        [JsonProperty(PropertyName= "price")]
-        public Decimal Price { get; set; }
+        [JsonProperty(PropertyName = "minPrice")]
+        public Decimal? MinPrice { get; set; }
+
+        [JsonProperty(PropertyName = "maxPrice")]
+        public Decimal? MaxPrice { get; set; }
+
 
         [JsonProperty(PropertyName= "isFree")]
-        public bool IsFree { get; set;}
+        public bool? IsFree { get; set;}
 
         [JsonProperty(PropertyName= "isSentAbroad")]
-        public bool IsSentAbroad { get; set; }
+        public bool? IsSentAbroad { get; set; }
 
         [JsonProperty(PropertyName= "sellerId")]
         public long? SellerId { get; set; }

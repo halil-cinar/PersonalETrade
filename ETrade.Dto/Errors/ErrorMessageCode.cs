@@ -147,6 +147,22 @@ namespace ETrade.Dto.Errors
         AccountLogInExceptionError,
         AccountAnonymousLogInExceptionError,
         AccountLogoutExceptionError,
-        AccountGetSessionByIpExceptionError
+        AccountGetSessionByIpExceptionError,
+        CarouselItemAddCarouselItemValidationError,
+        CarouselItemAddCarouselItemExceptionError,
+        CarouselItemUpdateCarouselItemValidationError,
+        CarouselItemUpdateCarouselItemExceptionError,
+        CarouselItemDeleteCarouselItemExceptionError,
+        CarouselItemFilterCarouselItemExceptionError,
+        CarouselItemFilterCarouselItemListError,
+        CarouselItemFilterCarouselItemListExceptionError,
+        DeliveryOptionAddDeliveryOptionValidationError,
+        DeliveryOptionAddDeliveryOptionExceptionError,
+        DeliveryOptionUpdateDeliveryOptionValidationError,
+        DeliveryOptionUpdateDeliveryOptionExceptionError,
+        DeliveryOptionDeleteDeliveryOptionExceptionError,
+        DeliveryOptionFilterDeliveryOptionExceptionError,
+        DeliveryOptionFilterDeliveryOptionListError,
+        DeliveryOptionFilterDeliveryOptionListExceptionError
     }
 }

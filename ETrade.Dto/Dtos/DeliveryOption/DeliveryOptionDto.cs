@@ -1,4 +1,5 @@
 
+using ETrade.Dto.Dtos.Media;
 using ETrade.Entities.Concrete;
 using Newtonsoft.Json;
 using System;
@@ -26,14 +27,20 @@ namespace ETrade.Dto.Dtos. DeliveryOption
         [JsonProperty(PropertyName= "isSentAbroad")]
         public bool IsSentAbroad { get; set; }
 
-        [JsonProperty(PropertyName= "sellerId")]
-        public long? SellerId { get; set; }
+        [JsonProperty(PropertyName = "logoId")]
+        public long? LogoId { get; set; }
 
-        
+        [JsonProperty(PropertyName = "logo")]
+        public MediaDto Logo { get; set; }
 
 
 
-    
-        }
+
+
+
+
+
+
     }
+}
     
