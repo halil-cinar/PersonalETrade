@@ -14,31 +14,29 @@ namespace ETrade.Dto.Filters
         {
             
         [JsonProperty(PropertyName= "orderId")]
-        public long OrderId { get; set; }
+        public long? OrderId { get; set; }
 
         [JsonProperty(PropertyName= "productId")]
-        public long ProductId { get; set; }
+        public long? ProductId { get; set; }
 
         [JsonProperty(PropertyName= "unitPrice")]
-        public Decimal UnitPrice { get; set; }
+        public Decimal? UnitPrice { get; set; }
 
-        [JsonProperty(PropertyName= "quantity")]
-        public int Quantity { get; set; }
+      
 
         [JsonProperty(PropertyName= "discountAmount")]
-        public Decimal DiscountAmount { get; set;}
+        public Decimal? DiscountAmount { get; set;}
 
-        [JsonProperty(PropertyName= "TrackingNumber")]
+        [JsonProperty(PropertyName= "trackingNumber")]
         public string TrackingNumber { get; set; }
 
         [JsonProperty(PropertyName= "deliveryOptionId")]
-        public long DeliveryOptionId { get; set; }
+        public long? DeliveryOptionId { get; set; }
 
         [JsonProperty(PropertyName= "shippedDate")]
         public DateTime? ShippedDate { get; set; }
 
-        [JsonProperty(PropertyName= "currencyId")]
-        public long CurrencyId { get; set; }
+       
 
 
 

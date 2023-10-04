@@ -19,7 +19,7 @@ namespace ETrade.Entities.Concrete
         public long UserId { get; set; }
 
         [Column("orderNo")]
-        public long OrderNo { get; set; }
+        public string OrderNo { get; set; }
 
         [Column("orderDate")]
         public DateTime OrderDate { get; set; }

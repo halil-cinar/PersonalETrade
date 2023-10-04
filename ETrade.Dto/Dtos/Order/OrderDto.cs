@@ -20,8 +20,7 @@ namespace ETrade.Dto.Dtos. Order
         [JsonProperty(PropertyName= "userId")]
         public long UserId { get; set; }
 
-        [JsonProperty(PropertyName= "orderNo")]
-        public long OrderNo { get; set; }
+        
 
         [JsonProperty(PropertyName= "orderDate")]
         public DateTime OrderDate { get; set; }

@@ -17,9 +17,9 @@ using System.Transactions;
 
 namespace ETrade.Business
 {
-    public class DeliveryOptionManager:ManagerBase<DeliveryOptionEntity>
+    public class DeliveryOptionManager : ManagerBase<DeliveryOptionEntity>
     {
-         private readonly MediaManager _mediaManager;
+        private readonly MediaManager _mediaManager;
         public DeliveryOptionManager(string userName, string ıpAddress, BaseEntityValidator<DeliveryOptionEntity> validator, IMapper mapper, IEntityDal<DeliveryOptionEntity> repository, MediaManager mediaManager) : base(userName, ıpAddress, validator, mapper, repository)
         {
             _mediaManager = mediaManager;
@@ -61,12 +61,12 @@ namespace ETrade.Business
 
                     var entity = new DeliveryOptionEntity
                     {
-                       
+
                         LogoId = imageId,
-                        BrandName= deliveryOptionDto.BrandName,
-                        IsFree= deliveryOptionDto.IsFree,
-                        IsSentAbroad= deliveryOptionDto.IsSentAbroad,
-                        
+                        BrandName = deliveryOptionDto.BrandName,
+                        IsFree = deliveryOptionDto.IsFree,
+                        IsSentAbroad = deliveryOptionDto.IsSentAbroad,
+
 
                         CreateIPAddress = IpAddress,
                         CreateTime = DateTime.Now,
@@ -78,7 +78,7 @@ namespace ETrade.Business
 
                     if (validationResult.IsValid)
                     {
-                        
+
                         Add(entity);
                         response.Result = mapper.Map<DeliveryOptionListDto>(entity);
                         scope.Complete();
@@ -147,11 +147,11 @@ namespace ETrade.Business
                     var entity = GetById(deliveryOptionDto.Id);
                     if (entity != null)
                     {
-                        entity.LogoId = imageId,
-                        entity.BrandName = deliveryOptionDto.BrandName,
-                        entity.IsFree = deliveryOptionDto.IsFree,
-                        entity.IsSentAbroad = deliveryOptionDto.IsSentAbroad,
-                        
+                        entity.LogoId = imageId;
+                        entity.BrandName = deliveryOptionDto.BrandName;
+                        entity.IsFree = deliveryOptionDto.IsFree;
+                        entity.IsSentAbroad = deliveryOptionDto.IsSentAbroad;
+
                         entity.IsDeleted = false;
                         entity.LastTransaction = "DeliveryOption Updated";
                         entity.UpdateIpAddress = IpAddress;
@@ -325,9 +325,9 @@ namespace ETrade.Business
             return response;
         }
 
-        
 
 
-    }
+
     }
 }
+

@@ -17,34 +17,42 @@ namespace ETrade.Dto.Filters
         /// Customer
         /// </summary>
         [JsonProperty(PropertyName= "userId")]
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         [JsonProperty(PropertyName= "orderNo")]
-        public long OrderNo { get; set; }
+        public string? OrderNo { get; set; }
 
-        [JsonProperty(PropertyName= "orderDate")]
-        public DateTime OrderDate { get; set; }
+        [JsonProperty(PropertyName = "minOrderDate")]
+        public DateTime? MinOrderDate { get; set; }
+
+        [JsonProperty(PropertyName = "maxOrderDate")]
+        public DateTime? MaxOrderDate { get; set; }
+
 
         [JsonProperty(PropertyName= "billingAddressId")]
-        public long BillingAddressId { get; set; }
+        public long? BillingAddressId { get; set; }
 
         [JsonProperty(PropertyName= "deliveryAddressId")]
-        public long DeliveryAddressId { get; set; }
+        public long? DeliveryAddressId { get; set; }
 
 
 
-        [JsonProperty(PropertyName= "discountAmount")]
-        public Decimal DiscountAmount { get; set; }
+        [JsonProperty(PropertyName = "minDiscountAmount")]
+        public Decimal? MinDiscountAmount { get; set; }
 
-        
-
-
-
+        [JsonProperty(PropertyName = "maxDiscountAmount")]
+        public Decimal? MaxDiscountAmount { get; set; }
 
 
 
 
-    
-        }
+
+
+
+
+
+
+
     }
+}
     

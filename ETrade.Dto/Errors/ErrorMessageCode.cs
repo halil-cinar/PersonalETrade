@@ -163,6 +163,26 @@ namespace ETrade.Dto.Errors
         DeliveryOptionDeleteDeliveryOptionExceptionError,
         DeliveryOptionFilterDeliveryOptionExceptionError,
         DeliveryOptionFilterDeliveryOptionListError,
-        DeliveryOptionFilterDeliveryOptionListExceptionError
+        DeliveryOptionFilterDeliveryOptionListExceptionError,
+        OrderAddOrderValidationError,
+        OrderAddOrderExceptionError,
+        OrderUpdateOrderValidationError,
+        OrderUpdateOrderExceptionError,
+        OrderDeleteOrderExceptionError,
+        OrderFilterOrderExceptionError,
+        OrderFilterOrderListError,
+        OrderFilterOrderListExceptionError,
+        OrderGetOrderNotFoundExceptionError,
+        OrderGetOrderExceptionError,
+        OrderDetailAddOrderDetailValidationError,
+        OrderDetailAddOrderDetailExceptionError,
+        OrderDetailUpdateOrderDetailValidationError,
+        OrderDetailUpdateOrderDetailExceptionError,
+        OrderDetailDeleteOrderDetailExceptionError,
+        OrderDetailFilterOrderDetailExceptionError,
+        OrderDetailFilterOrderDetailListError,
+        OrderDetailGetOrderDetailNotFoundExceptionError,
+        OrderDetailFilterOrderDetailListExceptionError,
+        OrderDetailGetOrderDetailExceptionError
     }
 }

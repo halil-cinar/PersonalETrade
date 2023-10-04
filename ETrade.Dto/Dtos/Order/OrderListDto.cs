@@ -37,10 +37,7 @@ namespace ETrade.Dto.Dtos. Order
         [JsonProperty(PropertyName= "discountAmount")]
         public Decimal DiscountAmount { get; set; }
 
-        [ForeignKey("UserId")]
-        public virtual UserEntity User { get; set; }
-
-        public virtual ICollection<OrderDetailEntity> OrderDetails { get; set; }
+       
 
 
 
