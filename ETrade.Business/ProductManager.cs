@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class ProductManager:ManagerBase<ProductEntity>
+    public class ProductManager:ManagerBase<ProductEntity>,IProductService
     {
-        public ProductManager(string userName, string ıpAddress, BaseEntityValidator<ProductEntity> validator, IMapper mapper, IEntityDal<ProductEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public ProductManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 

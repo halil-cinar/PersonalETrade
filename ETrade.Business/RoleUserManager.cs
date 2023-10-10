@@ -18,9 +18,9 @@ using System.Transactions;
 
 namespace ETrade.Business
 {
-    public class UserRoleManager : ManagerBase<UserRoleEntity>
+    public class UserRoleManager : ManagerBase<UserRoleEntity>,IUserRoleService
     {
-        public UserRoleManager(string userName, string ıpAddress, BaseEntityValidator<UserRoleEntity> validator, IMapper mapper, IEntityDal<UserRoleEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public UserRoleManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
         public BusinessLayerResult<UserRoleListDto> AddUserRole(UserRoleDto userRoleDto)

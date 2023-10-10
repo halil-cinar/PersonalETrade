@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ETrade.Dto.Dtos.Account
 {
-    public class AnonymousLoginDto
+    public class AnonymousLogInDto
     {
 
         [JsonProperty(PropertyName = "deviceType")]

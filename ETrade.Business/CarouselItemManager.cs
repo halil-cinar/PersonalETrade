@@ -18,12 +18,12 @@ using System.Transactions;
 
 namespace ETrade.Business
 {
-    public class CarouselItemManager:ManagerBase<CarouselItemEntity>
+    public class CarouselItemManager:ManagerBase<CarouselItemEntity>,ICarouselItemService
     {
-        private readonly MediaManager _mediaManager;
-        public CarouselItemManager(string userName, string ıpAddress, BaseEntityValidator<CarouselItemEntity> validator, IMapper mapper, IEntityDal<CarouselItemEntity> repository, MediaManager mediaManager) : base(userName, ıpAddress, validator, mapper, repository)
+        private readonly IMediaService _mediaManager;
+        public CarouselItemManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
-            _mediaManager = mediaManager;
+            _mediaManager = new MediaManager(userName,IpAddress);
         }
         public BusinessLayerResult<CarouselItemListDto> AddCarouselItem(CarouselItemDto carouselItemDto)
         {

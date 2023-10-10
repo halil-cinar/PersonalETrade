@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class MediaManager : ManagerBase<MediaEntity>
+    public class MediaManager : ManagerBase<MediaEntity>,IMediaService
     {
-        public MediaManager(string userName, string ıpAddress, BaseEntityValidator<MediaEntity> validator, IMapper mapper, IEntityDal<MediaEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public MediaManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 

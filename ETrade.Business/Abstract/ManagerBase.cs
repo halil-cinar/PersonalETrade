@@ -1,8 +1,6 @@
 ﻿
 using AutoMapper;
-using ETrade.Core.Abstract.DataAccess;
-using ETrade.Core.Abstract.DataAccess.EntityFrameworkCore;
-using ETrade.DataAccess.EntityFrameworkCore;
+
 using ETrade.Entities.Abstract;
 using ETrade.Entities.Validators;
 using FluentValidation;
@@ -12,6 +10,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using ETrade.Entities.Validators;
+using Ninject;
+using System.Reflection;
+using ETrade.Core.Abstract.DataAccess;
+using ETrade.Business.Mapping.AutoMapper;
 
 namespace ETrade.Business.Abstract
 {
@@ -29,19 +32,24 @@ namespace ETrade.Business.Abstract
         public BaseEntityValidator<TEntity> UpdateValidator { get;  set; }
         public IEntityDal<TEntity> repository { get; set; }
 
-        public ManagerBase(string userName, string ıpAddress, BaseEntityValidator<TEntity> validator, IMapper mapper, IEntityDal<TEntity> repository)
+        public ManagerBase(string userName, string ıpAddress)
         {
+
+            var kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
             UserName = userName;
             IpAddress = ıpAddress;
-            Validator = validator;
+            Validator = kernel.Get<BaseEntityValidator<TEntity>>();
 
-
+            
             UpdateValidator = (BaseEntityValidator<TEntity>)Activator.CreateInstance(Validator.GetType());
             UpdateValidator.RuleFor(x => x.UpdateTime).NotEmpty().NotNull();
             UpdateValidator.RuleFor(x => x.UpdateIpAddress).NotEmpty().NotNull();
             UpdateValidator.RuleFor(x => x.UpdateUserName).NotEmpty().NotNull();
-            this.mapper = mapper;
-            this.repository = repository;
+            this.mapper = new AutoMapper.Mapper(new AutoMapper.MapperConfiguration(x => x.AddProfile(new AutoMapperProfile())));
+            
+            this.repository = kernel.Get<IEntityDal<TEntity>>();
         }
 
         public void Add(TEntity entity)

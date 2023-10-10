@@ -26,16 +26,21 @@ namespace ETrade.Dto.Filters
         [JsonProperty(PropertyName= "deviceType")]
         public DeviceType? DeviceType { get; set; }
 
-        [JsonProperty(PropertyName= "notifyToken")]
+        [JsonProperty(PropertyName = "notifyToken")]
         public string? NotifyToken { get; set; }
 
-        
+        [JsonProperty(PropertyName = "isActive")]
+        public bool? IsActive { get; set; }
 
-       
 
 
-       
-    
-        }
+
+
+
+
+
+
+
     }
+}
     

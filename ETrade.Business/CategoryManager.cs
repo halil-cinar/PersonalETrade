@@ -20,12 +20,12 @@ using System.Transactions;
 
 namespace ETrade.Business
 {
-    public class CategoryManager:ManagerBase<CategoryEntity>
+    public class CategoryManager:ManagerBase<CategoryEntity>,ICategoryService
     {
-        private readonly MediaManager _mediaManager;
-        public CategoryManager(string userName, string ıpAddress, BaseEntityValidator<CategoryEntity> validator, IMapper mapper, IEntityDal<CategoryEntity> repository, MediaManager mediaManager) : base(userName, ıpAddress, validator, mapper, repository)
+        private readonly IMediaService _mediaManager;
+        public CategoryManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
-            _mediaManager = mediaManager;
+            _mediaManager = new MediaManager(userName,ıpAddress);
         }
         public BusinessLayerResult<CategoryListDto> AddCategory(CategoryDto categoryDto)
         {

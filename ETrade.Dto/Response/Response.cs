@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ETrade.Dto.Errors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,12 @@ namespace ETrade.Dto.Response
     {
         public ResponseStatusCode StatusCode { get; set; }
 
-        public List<string> Message { get; set; }
+        public List<ErrorMessageObj> Message { get; set; }
 
         public T Data { get; set; }
 
         public Response() { 
-        Message= new List<string>();
+        Message= new List<ErrorMessageObj>();
         }
 
 

@@ -15,5 +15,9 @@ namespace ETrade.Dto.Filters
 
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
+
+        [JsonProperty(PropertyName = "Ids")]
+        public long[]? Ids { get; set; }
+
     }
 }

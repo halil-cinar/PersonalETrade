@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class GenderManager : ManagerBase<GenderEntity>
+    public class GenderManager : ManagerBase<GenderEntity>,IGenderService
     {
-        public GenderManager(string userName, string ıpAddress, BaseEntityValidator<GenderEntity> validator, IMapper mapper, IEntityDal<GenderEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public GenderManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
         public BusinessLayerResult<GenderListDto> AddGender(GenderDto genderDto)

@@ -17,12 +17,12 @@ using System.Transactions;
 
 namespace ETrade.Business
 {
-    public class DeliveryOptionManager : ManagerBase<DeliveryOptionEntity>
+    public class DeliveryOptionManager : ManagerBase<DeliveryOptionEntity>,IDeliveryOptionService
     {
-        private readonly MediaManager _mediaManager;
-        public DeliveryOptionManager(string userName, string ıpAddress, BaseEntityValidator<DeliveryOptionEntity> validator, IMapper mapper, IEntityDal<DeliveryOptionEntity> repository, MediaManager mediaManager) : base(userName, ıpAddress, validator, mapper, repository)
+        private readonly IMediaService _mediaManager;
+        public DeliveryOptionManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
-            _mediaManager = mediaManager;
+            _mediaManager = new MediaManager(userName,ıpAddress);
         }
         public BusinessLayerResult<DeliveryOptionListDto> AddDeliveryOption(DeliveryOptionDto deliveryOptionDto)
         {

@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class CommentManager:ManagerBase<CommentEntity>
+    public class CommentManager:ManagerBase<CommentEntity>,ICommentService
     {
-        public CommentManager(string userName, string ıpAddress, BaseEntityValidator<CommentEntity> validator, IMapper mapper, IEntityDal<CommentEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public CommentManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 

@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class OrderDetailManager:ManagerBase<OrderDetailEntity>
+    public class OrderDetailManager:ManagerBase<OrderDetailEntity>,IOrderDetailService
     {
-        public OrderDetailManager(string userName, string ıpAddress, BaseEntityValidator<OrderDetailEntity> validator, IMapper mapper, IEntityDal<OrderDetailEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public OrderDetailManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 

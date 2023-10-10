@@ -35,7 +35,7 @@ namespace ETrade.Core.ExtensionMethods
                 
                 MailMessage mailMessage = new MailMessage
                 {
-                    From = new MailAddress("mustafac798@outlook.com"),
+                    From = new MailAddress("no-reply@ETrade.com"),
                     Subject = subject,
                     Body = body,
                     IsBodyHtml = isHtml,

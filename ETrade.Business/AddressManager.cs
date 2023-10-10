@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class AddressManager : ManagerBase<AddressEntity>
+    public class AddressManager : ManagerBase<AddressEntity>,IAddressService
     {
-        public AddressManager( BaseEntityValidator<AddressEntity> validator, IMapper mapper, IEntityDal<AddressEntity> repository ,string userName= "a", string ıpAddress = "127.0.0.1") : base(userName, ıpAddress, validator, mapper, repository)
+        public AddressManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 
@@ -223,13 +223,13 @@ namespace ETrade.Business
             return response;
         }
 
-        public BusinessLayerResult<AddressDetailListDto> GetAddress(long addressId)
+        public BusinessLayerResult<AddressListDto> GetAddress(long addressId)
         {
-            var response = new BusinessLayerResult<AddressDetailListDto>();
+            var response = new BusinessLayerResult<AddressListDto>();
             try
             {
                 var entity = GetById(addressId);
-                response.Result=mapper.Map<AddressDetailListDto>(entity);
+                response.Result=mapper.Map<AddressListDto>(entity);
                // response.Result.Country = entity.Country;
             }
             catch (Exception ex)

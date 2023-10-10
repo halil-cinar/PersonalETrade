@@ -23,16 +23,16 @@ using System.Xml.XPath;
 
 namespace ETrade.Business
 {
-    public class UserManager : ManagerBase<UserEntity>
+    public class UserManager : ManagerBase<UserEntity>,IUserService
     {
-        private readonly MediaManager _mediaManager;
-        private readonly UserRoleManager _userRoleManager;
-        private readonly IdentityManager _identityManager;
-        public UserManager(string userName, string ıpAddress, BaseEntityValidator<UserEntity> validator, IMapper mapper, IEntityDal<UserEntity> repository, MediaManager mediaManager, UserRoleManager userRoleManager, IdentityManager identityManager) : base(userName, ıpAddress, validator, mapper, repository)
+        private readonly IMediaService _mediaManager;
+        private readonly IUserRoleService _userRoleManager;
+        private readonly IIdentityService _identityManager;
+        public UserManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
-            _mediaManager = mediaManager;
-            _userRoleManager = userRoleManager;
-            _identityManager = identityManager;
+            _mediaManager = new MediaManager(userName,IpAddress);
+            _userRoleManager = new UserRoleManager(userName,IpAddress);
+            _identityManager = new IdentityManager(userName,IpAddress);
         }
 
 

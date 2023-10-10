@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ETrade.Entities.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,6 +29,9 @@ namespace ETrade.Dto.Dtos.Identity
         [Compare("Password")]
         [JsonProperty(PropertyName = "confirmPassword")]
         public string ConfirmPassword { get; set; }
+
+        [JsonProperty(PropertyName ="deviceType")]
+        public DeviceType DeviceType { get; set; }
 
 
 

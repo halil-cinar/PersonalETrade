@@ -19,10 +19,10 @@ using System.Transactions;
 
 namespace ETrade.Business
 {
-    public class IdentityManager : ManagerBase<IdentityEntity>
+    public class IdentityManager : ManagerBase<IdentityEntity>,IIdentityService
     {
        
-        public IdentityManager(string userName, string ıpAddress, BaseEntityValidator<IdentityEntity> validator, IMapper mapper, IEntityDal<IdentityEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public IdentityManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 

@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class CurrencyManager : ManagerBase<CurrencyEntity>
+    public class CurrencyManager : ManagerBase<CurrencyEntity>,ICurrencyService
     {
-        public CurrencyManager(string userName, string ıpAddress, BaseEntityValidator<CurrencyEntity> validator, IMapper mapper, IEntityDal<CurrencyEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public CurrencyManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 

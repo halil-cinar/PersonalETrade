@@ -20,12 +20,12 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace ETrade.Business
 {
-    public class BrandManager : ManagerBase<BrandEntity>
+    public class BrandManager : ManagerBase<BrandEntity>,IBrandService
     {
-        private readonly MediaManager _mediaManager;
-        public BrandManager(string userName, string ıpAddress, BaseEntityValidator<BrandEntity> validator, IMapper mapper, IEntityDal<BrandEntity> repository, MediaManager mediaManager) : base(userName, ıpAddress, validator, mapper, repository)
+        private readonly IMediaService _mediaManager;
+        public BrandManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
-            _mediaManager = mediaManager;
+            _mediaManager = new MediaManager(userName, IpAddress);
         }
         public BusinessLayerResult<BrandListDto> AddBrand(BrandDto brandDto)
         {

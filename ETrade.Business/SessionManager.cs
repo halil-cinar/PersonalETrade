@@ -20,10 +20,10 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class SessionManager:ManagerBase<SessionEntity>
+    public class SessionManager:ManagerBase<SessionEntity>,ISessionService
     {
 
-        public SessionManager(string userName, string ıpAddress, BaseEntityValidator<SessionEntity> validator, IMapper mapper, IEntityDal<SessionEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public SessionManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
         }
 
@@ -158,16 +158,21 @@ namespace ETrade.Business
                     }
                     if (sessionFilter.DeviceType != null)
                     {
-                        query += $"deviceType like '%{sessionFilter.DeviceType}%' and ";
+                        query += $"deviceType ={sessionFilter.DeviceType} and ";
                     }
                     if (sessionFilter.IdentityId != null)
                     {
-                        query += $"identityId like '%{sessionFilter.IdentityId}%' and ";
+                        query += $"identityId = {sessionFilter.IdentityId} and ";
                     }
                     if (sessionFilter.UserId != null)
                     {
-                        query += $"userId like '%{sessionFilter.UserId}%' and ";
+                        query += $"userId = {sessionFilter.UserId} and ";
                     }
+                    if (sessionFilter.IsActive != null)
+                    {
+                        query += $"isActive = {sessionFilter.IsActive} and ";
+                    }
+
 
 
                 }

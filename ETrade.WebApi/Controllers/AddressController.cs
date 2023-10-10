@@ -2,6 +2,7 @@
 using ETrade.Business;
 using ETrade.Core.Abstract.DataAccess;
 using ETrade.Dto.Dtos.Address;
+using ETrade.Dto.Errors;
 using ETrade.Dto.Filters;
 using ETrade.Dto.LoadMoreDtos;
 using ETrade.Dto.Response;
@@ -22,22 +23,18 @@ namespace ETrade.WebApi.Controllers
         public IMapper mapper { get; set; }
         public string IpAddress { get; set; }
 
-        public BaseEntityValidator<AddressEntity> Validator { get; set; }
-
-        public IEntityDal<AddressEntity> repository { get; set; }
-
+       
         private readonly AddressManager _addressManager;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AddressController(BaseEntityValidator<AddressEntity> validator, IMapper mapper, IEntityDal<AddressEntity> repository, IHttpContextAccessor httpContextAccessor)
+        public AddressController( IHttpContextAccessor httpContextAccessor)
         {
             UserName = "admin";
             IpAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-            Validator = validator;
-            this.mapper = mapper;
-            this.repository = repository;
-            _addressManager = new AddressManager(validator, mapper, repository, UserName, IpAddress);
+           
+           
+            _addressManager = new AddressManager( UserName, IpAddress);
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -52,7 +49,7 @@ namespace ETrade.WebApi.Controllers
                 if (result.ErrorMessages.Count > 0)
                 {
                     response.StatusCode = ResponseStatusCode.Error;
-                    response.Message = result.ErrorMessages.Select(x => ((int)x.ErrorCode).ToString() + " - " + x.Message).ToList();
+                    response.Message.AddRange(result.ErrorMessages);
                 }
                 else
                 {
@@ -64,7 +61,11 @@ namespace ETrade.WebApi.Controllers
             catch (Exception ex)
             {
                 response.StatusCode = ResponseStatusCode.Error;
-                response.Message.Add(ex.ToString());
+                response.Message.Add(new ErrorMessageObj
+                {
+                    ErrorCode = ErrorMessageCode.AddressExceptionError,
+                    Message = ex.Message
+                });
             }
 
             return response;
@@ -83,7 +84,7 @@ namespace ETrade.WebApi.Controllers
                 if (result.ErrorMessages.Count > 0)
                 {
                     response.StatusCode = ResponseStatusCode.Error;
-                    response.Message = result.ErrorMessages.Select(x => x.Message).ToList();
+                    response.Message.AddRange(result.ErrorMessages);
                 }
                 else
                 {
@@ -95,7 +96,11 @@ namespace ETrade.WebApi.Controllers
             catch (Exception ex)
             {
                 response.StatusCode = ResponseStatusCode.Error;
-                response.Message.Add(ex.ToString());
+                response.Message.Add(new ErrorMessageObj
+                {
+                    ErrorCode = ErrorMessageCode.AddressExceptionError,
+                    Message = ex.Message
+                });
             }
 
             return response;
@@ -112,7 +117,7 @@ namespace ETrade.WebApi.Controllers
                 if (result.ErrorMessages.Count > 0)
                 {
                     response.StatusCode = ResponseStatusCode.Error;
-                    response.Message = result.ErrorMessages.Select(x => x.Message).ToList();
+                    response.Message.AddRange(result.ErrorMessages);
                 }
                 else
                 {
@@ -124,7 +129,11 @@ namespace ETrade.WebApi.Controllers
             catch (Exception ex)
             {
                 response.StatusCode = ResponseStatusCode.Error;
-                response.Message.Add(ex.ToString());
+                response.Message.Add(new ErrorMessageObj
+                {
+                    ErrorCode = ErrorMessageCode.AddressExceptionError,
+                    Message = ex.Message
+                });
             }
 
             return response;
@@ -143,7 +152,7 @@ namespace ETrade.WebApi.Controllers
                 if (result.ErrorMessages.Count > 0)
                 {
                     response.StatusCode = ResponseStatusCode.Error;
-                    response.Message = result.ErrorMessages.Select(x => x.Message).ToList();
+                    response.Message.AddRange(result.ErrorMessages);
                 }
                 else
                 {
@@ -155,7 +164,11 @@ namespace ETrade.WebApi.Controllers
             catch (Exception ex)
             {
                 response.StatusCode = ResponseStatusCode.Error;
-                response.Message.Add(ex.ToString());
+                response.Message.Add(new ErrorMessageObj
+                {
+                    ErrorCode = ErrorMessageCode.AddressExceptionError,
+                    Message = ex.Message
+                });
             }
 
             return response;
@@ -163,16 +176,16 @@ namespace ETrade.WebApi.Controllers
 
         [HttpGet]
         [Route("Get/{id:long}")]
-        public Response<AddressDetailListDto> Get(long id)
+        public Response<AddressListDto> Get(long id)
         {
-            var response = new Response<AddressDetailListDto>();
+            var response = new Response<AddressListDto>();
             try
             {
                 var result = _addressManager.GetAddress(id);
                 if (result.ErrorMessages.Count > 0)
                 {
                     response.StatusCode = ResponseStatusCode.Error;
-                    response.Message = result.ErrorMessages.Select(x => x.Message).ToList();
+                    response.Message.AddRange(result.ErrorMessages);
                 }
                 else
                 {
@@ -184,7 +197,11 @@ namespace ETrade.WebApi.Controllers
             catch (Exception ex)
             {
                 response.StatusCode = ResponseStatusCode.Error;
-                response.Message.Add(ex.ToString());
+                response.Message.Add(new ErrorMessageObj
+                {
+                    ErrorCode = ErrorMessageCode.AddressExceptionError,
+                    Message = ex.Message
+                });
             }
 
             return response;

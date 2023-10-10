@@ -17,10 +17,11 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class CountryManager:ManagerBase<CountryEntity>
+    public class CountryManager:ManagerBase<CountryEntity>,ICountryService
     {
-        public CountryManager(string userName, string ıpAddress, BaseEntityValidator<CountryEntity> validator, IMapper mapper, IEntityDal<CountryEntity> repository) : base(userName, ıpAddress, validator, mapper, repository)
+        public CountryManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
+
         }
 
         public BusinessLayerResult<CountryListDto> AddCountry(CountryDto countryDto)

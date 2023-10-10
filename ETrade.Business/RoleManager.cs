@@ -17,13 +17,13 @@ using System.Threading.Tasks;
 
 namespace ETrade.Business
 {
-    public class RoleManager : ManagerBase<RoleEntity>
+    public class RoleManager : ManagerBase<RoleEntity>,IRoleService
     {
-        private readonly UserRoleManager _userRoleManager;
+        private readonly IUserRoleService _userRoleManager;
 
-        public RoleManager(string userName, string ıpAddress, BaseEntityValidator<RoleEntity> validator, IMapper mapper, IEntityDal<RoleEntity> repository, UserRoleManager userRoleManager) : base(userName, ıpAddress, validator, mapper, repository)
+        public RoleManager(string userName, string ıpAddress) : base(userName, ıpAddress)
         {
-            _userRoleManager = userRoleManager;
+            _userRoleManager = new UserRoleManager(userName,ıpAddress);
         }
 
         public BusinessLayerResult<RoleListDto> AddRole(RoleDto roleDto)
