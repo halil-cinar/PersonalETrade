@@ -25,17 +25,21 @@ namespace ETrade.WebApi.Controllers
 
        
         private readonly AddressManager _addressManager;
+        private readonly AccountManager _accountManager;
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AddressController( IHttpContextAccessor httpContextAccessor)
+        public AddressController(IHttpContextAccessor httpContextAccessor, AccountManager accountManager)
         {
             UserName = "admin";
+            var token = Request.Headers.Authorization;
             IpAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-           
-           
-            _addressManager = new AddressManager( UserName, IpAddress);
-            _httpContextAccessor = httpContextAccessor;
+           var session= accountManager.GetActiveSessionByToken(token);
+            if (session == null)
+            {
+
+            }
+            _addressManager = new AddressManager(UserName, IpAddress);
+            _accountManager = accountManager;
         }
 
         [HttpPost]
