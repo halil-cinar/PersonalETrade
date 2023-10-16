@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ETrade.Business.Abstract;
+using ETrade.Core.Mapping.AutoMapper;
 using ETrade.Dto.Dtos.Account;
 using ETrade.Dto.Dtos.Identity;
 using ETrade.Dto.Dtos.Notify;
@@ -20,7 +21,7 @@ using System.Transactions;
 
 namespace ETrade.Business
 {
-    public class AccountManager:IAccountService
+    public class AccountManager : IAccountService
     {
         private readonly ISessionService _sessionManager;
         private readonly IIdentityService _identityManager;
@@ -32,7 +33,7 @@ namespace ETrade.Business
         private readonly IMapper _mapper;
         private readonly string _IpAddress;
 
-        public AccountManager(IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        public AccountManager(IHttpContextAccessor httpContextAccessor)
         {
             var ipAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
             _IpAddress = ipAddress;
@@ -43,8 +44,25 @@ namespace ETrade.Business
             _roleService = new RoleManager("", ipAddress);
             _roleMethodService = new RoleMethodManager("", ipAddress);
             _userRoleService = new UserRoleManager("", ipAddress);
-            _mapper = mapper;
+            _mapper = new AutoMapper.Mapper(new AutoMapper.MapperConfiguration(x => x.AddProfile(new AutoMapperProfile())));
+
         }
+
+        public AccountManager(string ipAddress)
+        {
+            _IpAddress = ipAddress;
+            _sessionManager = new SessionManager("", _IpAddress);
+            _identityManager = new IdentityManager("", _IpAddress);
+            _userService = new UserManager("", ipAddress);
+            _notifyService = new NotifyManager("", ipAddress);
+            _roleService = new RoleManager("", ipAddress);
+            _roleMethodService = new RoleMethodManager("", ipAddress);
+            _userRoleService = new UserRoleManager("", ipAddress);
+            _mapper = new AutoMapper.Mapper(new AutoMapper.MapperConfiguration(x => x.AddProfile(new AutoMapperProfile())));
+
+        }
+
+
 
 
 
@@ -359,14 +377,14 @@ namespace ETrade.Business
                 var methodResult = _roleMethodService.Filter(new Dto.Filters.RoleMethodFilter
                 {
                     RoleIds = roles.Select(x => x.Id).ToArray()
-                }) ;
+                });
                 if (methodResult.ErrorMessages.Count > 0)
                 {
                     response.ErrorMessages.AddRange(methodResult.ErrorMessages);
                     return response;
                 }
                 response.Result = methodResult.Result;
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
                 response.AddErrorMessages(ErrorMessageCode.AccountGetUserRoleMethodExceptionError, ex.Message);
 
@@ -424,7 +442,7 @@ namespace ETrade.Business
                     response.ErrorMessages.AddRange(adminRole.ErrorMessages);
                     return response;
                 }
-                if (adminRole.Result != null &&
+                if (adminRole.Result == null &&
                     userDto.RoleIds.Contains(adminRole.Result.FirstOrDefault().Id)
                     )
                 {
@@ -471,9 +489,26 @@ namespace ETrade.Business
             return response;
         }
 
+       public BusinessLayerResult<List<RoleMethodListDto>> GetGuestRoleMethods()
+        {
+            var response= new BusinessLayerResult<List<RoleMethodListDto>>();
+            response.Result = new List<RoleMethodListDto>();
+            return 
+                response;
+        }
+
+        //public BusinessLayerResult<long> GetUserIdByToken(string token)
+        //{
+        //    var response = new BusinessLayerResult<long>();
+        //    try
+        //    {
+
+        //    }
+        //}
 
 
 
 
     }
-}
+    }
+

@@ -73,7 +73,7 @@ namespace ETrade.Business
                         CreateIPAddress = IpAddress,
                         CreateTime = DateTime.Now,
                         CreateUserName = UserName,
-                        IsDeleted = false,
+                        isDeleted = false,
                         LastTransaction = "Category has been added"
                     };
                     var validationResult = Validator.Validate(entity);
@@ -154,7 +154,7 @@ namespace ETrade.Business
                         entity.Title = categoryDto.Title;
                         entity.Description = categoryDto.Description;   
                         entity.Link = categoryDto.Link;
-                        entity.IsDeleted = false;
+                        entity.isDeleted = false;
                         entity.LastTransaction = "Category Updated";
                         entity.UpdateIpAddress = IpAddress;
                         entity.UpdateTime = DateTime.Now;
@@ -192,7 +192,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(categoryId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
                 response.Result = mapper.Map<CategoryListDto>(entity);
             }

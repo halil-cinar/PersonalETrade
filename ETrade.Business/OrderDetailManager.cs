@@ -45,7 +45,7 @@ namespace ETrade.Business
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
                     CreateIPAddress = IpAddress,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "OrderDetail has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -92,7 +92,7 @@ namespace ETrade.Business
                     entity.UnitPrice = orderDetailDto.UnitPrice;
 
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "OrderDetail Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -127,7 +127,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(orderDetailId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
             }
             catch (Exception ex)

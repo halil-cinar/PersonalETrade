@@ -14,7 +14,10 @@ namespace ETrade.Entities.Abstract
         public long ID { get; set; }
 
         [Column("isDeleted")]
-        public bool IsDeleted { get; set; }
+        public bool isDeleted { get; set; }
+
+        [Column("isDeletable")]
+        public bool? isDeletable { get; set; }
 
         [Column("createUserName")]
         public string CreateUserName { get; set; }

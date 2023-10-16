@@ -38,7 +38,7 @@ namespace ETrade.Business
                     CreateIPAddress = IpAddress,
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "Address has been added"
                 };
                 var validationResult=Validator.Validate(entity);
@@ -80,7 +80,7 @@ namespace ETrade.Business
                     entity.PostalCode = addressDto.PostalCode;
                     entity.CountryId = addressDto.CountryId;
                     
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "Address Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime=DateTime.Now;
@@ -114,7 +114,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(addressId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
                 response.Result= mapper.Map<AddressListDto>(entity);
             }catch(Exception ex)
@@ -129,7 +129,7 @@ namespace ETrade.Business
             var response = new BusinessLayerResult<List<AddressListDto>>();
             try
             {
-                var query = "select * from Address where isDeleted=0 and ";
+                var query = "select * from Address where isDeleted = 0 and ";
 
                 if (addressFilter != null)
                 {
@@ -170,7 +170,8 @@ namespace ETrade.Business
 
             return response;
         }
-        
+
+       
         public BusinessLayerResult<AddressLoadMoreDto> FilterAddressList(BaseLoadMoreFilter<AddressFilter> filter)
         {
             var response=new BusinessLayerResult<AddressLoadMoreDto>();
@@ -195,7 +196,7 @@ namespace ETrade.Business
                 var firstIndex = filter.PageCount * filter.ContentCount;
                 var lastIndex = firstIndex + filter.ContentCount;
 
-                if (contentCount <= firstIndex)
+                if (contentCount <= firstIndex )
                 {
                     response.AddErrorMessages(ErrorMessageCode.AddressFilterAddressListError, "No more address");
                 }

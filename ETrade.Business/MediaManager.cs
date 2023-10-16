@@ -39,7 +39,7 @@ namespace ETrade.Business
                     CreateIPAddress=IpAddress,
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "Media has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -81,7 +81,7 @@ namespace ETrade.Business
                     entity.FileName = mediaDto.FileName;
                     entity.FileType = mediaDto.FileType;
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "Media Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -116,7 +116,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(mediaId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
             }
             catch (Exception ex)

@@ -14,7 +14,8 @@ using ETrade.Entities.Validators;
 using Ninject;
 using System.Reflection;
 using ETrade.Core.Abstract.DataAccess;
-using ETrade.Business.Mapping.AutoMapper;
+using ETrade.Core.Mapping.AutoMapper;
+using Ninject.Modules;
 
 namespace ETrade.Business.Abstract
 {

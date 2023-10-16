@@ -11,8 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ETrade.DataAccess.EntityFrameworkCore;
 using ETrade.Core.Abstract.DataAccess;
+using ETrade.DataAccess.EntityFrameworkCore;
 
 namespace ETrade.Business.DependencyResolvers.Ninject
 {
@@ -21,7 +21,9 @@ namespace ETrade.Business.DependencyResolvers.Ninject
         public override void Load()
         {
             Bind<BaseEntityValidator<ChatEntity>>()             .To<ChatValidator>();
-            Bind<BaseEntityValidator<CommentEntity>>()          .To<CommentValidator>();
+            Bind<BaseEntityValidator<CommentEntity>>().To<CommentValidator>();
+            Bind<BaseEntityValidator<CountryEntity>>().To<CountryValidator>();
+
             Bind<BaseEntityValidator<IdentityEntity>>()         .To<IdentityValidator>();
             Bind<BaseEntityValidator<MediaEntity>>()            .To<MediaValidator>();
             Bind<BaseEntityValidator<MessageEntity>>()          .To<MessageValidator>();
@@ -32,8 +34,10 @@ namespace ETrade.Business.DependencyResolvers.Ninject
             Bind<BaseEntityValidator<SystemSettingsEntity>>()   .To<SystemSettingsValidator>();
             Bind<BaseEntityValidator<UserChatEntity>>()         .To<UserChatValidator>();
             Bind<BaseEntityValidator<UserEntity>>()             .To<UserValidator>();
-            Bind<BaseEntityValidator<UserRoleEntity>>()         .To<UserRoleValidator>();
+            Bind<BaseEntityValidator<UserRoleEntity>>().To<UserRoleValidator>();
             Bind<BaseEntityValidator<NotifyEntity>>().To<NotifyValidator>();
+            Bind<BaseEntityValidator<MethodEntity>>().To<MethodValidator>();
+            Bind<BaseEntityValidator<RoleMethodEntity>>().To<RoleMethodValidator>();
 
 
 
@@ -41,9 +45,13 @@ namespace ETrade.Business.DependencyResolvers.Ninject
 
 
 
-            Bind<IEntityDal<ChatEntity>>()              .To<EfEntityGenericRepository<ChatEntity>>();
-            Bind<IEntityDal<CommentEntity>>()           .To<EfEntityGenericRepository<CommentEntity>>();
-             Bind<IEntityDal<IdentityEntity>>()         .To<EfEntityGenericRepository<IdentityEntity>>();
+            Bind<IEntityDal<AddressEntity>>().To<EfEntityGenericRepository<AddressEntity>>();
+
+            Bind<IEntityDal<ChatEntity>>().To<EfEntityGenericRepository<ChatEntity>>();
+            Bind<IEntityDal<CommentEntity>>().To<EfEntityGenericRepository<CommentEntity>>();
+            Bind<IEntityDal<CountryEntity>>().To<EfEntityGenericRepository<CountryEntity>>();
+
+            Bind<IEntityDal<IdentityEntity>>()         .To<EfEntityGenericRepository<IdentityEntity>>();
              Bind<IEntityDal<MediaEntity>>()            .To<EfEntityGenericRepository<MediaEntity>>();
              Bind<IEntityDal<MessageEntity>>()          .To<EfEntityGenericRepository<MessageEntity>>();
              Bind<IEntityDal<RoleEntity>>()             .To<EfEntityGenericRepository<RoleEntity>>();
@@ -54,7 +62,10 @@ namespace ETrade.Business.DependencyResolvers.Ninject
              Bind<IEntityDal<UserEntity>>()             .To<EfEntityGenericRepository<UserEntity>>();
              Bind<IEntityDal<UserRoleEntity>>()         .To<EfEntityGenericRepository<UserRoleEntity>>();
             Bind<IEntityDal<UserSettingsEntity>>()      .To<EfEntityGenericRepository<UserSettingsEntity>>();
-            Bind<IEntityDal<NotifyEntity>>()            .To<EfEntityGenericRepository<NotifyEntity>>();
+            Bind<IEntityDal<NotifyEntity>>().To<EfEntityGenericRepository<NotifyEntity>>();
+            Bind<IEntityDal<MethodEntity>>().To<EfEntityGenericRepository<MethodEntity>>();
+            Bind<IEntityDal<RoleMethodEntity>>().To<EfEntityGenericRepository<RoleMethodEntity>>();
+
 
 
 

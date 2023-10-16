@@ -32,7 +32,7 @@ namespace ETrade.Business
                     Name= genderDto.Name,
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "Gender has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -70,7 +70,7 @@ namespace ETrade.Business
                 {
                     entity.Name= genderDto.Name;
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "Gender Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -105,7 +105,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(genderId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
             }
             catch (Exception ex)

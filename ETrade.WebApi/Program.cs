@@ -1,15 +1,24 @@
+
 using ETrade.Business;
-using ETrade.Business.Mapping.AutoMapper;
 using ETrade.Core.Abstract.DataAccess;
 using ETrade.DataAccess.EntityFrameworkCore;
 using ETrade.Entities.Concrete;
 using ETrade.Entities.Validators;
+using Microsoft.AspNetCore.Hosting;
 using System.Data.Entity;
+using ETrade.Core.Mapping.AutoMapper;
+using ETrade.Business.Abstract;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Writers;
 
 namespace ETrade.WebApi
 {
     public class Program
     {
+
+       
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -25,13 +34,18 @@ namespace ETrade.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
             
             //builder.Services.AddScoped<AddressManager,AddressManager>();
             builder.Services.AddScoped<DbContext,DatabaseContext>();
             builder.Services.AddScoped<IEntityDal<AddressEntity>, EfEntityGenericRepository<AddressEntity>>();
             builder.Services.AddScoped<BaseEntityValidator<AddressEntity>,AddressValidator>();
+            builder.Services.AddScoped<IAccountService, AccountManager>();
 
             builder.Services.AddAutoMapper(typeof( AutoMapperProfile));
+
+            
+           
 
             var app = builder.Build();
 
@@ -46,12 +60,15 @@ namespace ETrade.WebApi
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
+            
 
             app.MapControllers();
 

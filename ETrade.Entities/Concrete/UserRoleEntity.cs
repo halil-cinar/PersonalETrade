@@ -17,7 +17,7 @@ namespace ETrade.Entities.Concrete
         [Column("roleId")]
         public long RoleId { get; set; }
 
-        [Column("isActive")]
+        [Column("IsActive")]
         public bool IsActive { get; set; }
 
         [ForeignKey("UserId")]

@@ -38,7 +38,7 @@ namespace ETrade.Business
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
                     CreateIPAddress = IpAddress,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "Method has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -80,7 +80,7 @@ namespace ETrade.Business
 
 
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "Method Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -115,7 +115,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(methodId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
 
                 Update(entity);
             }

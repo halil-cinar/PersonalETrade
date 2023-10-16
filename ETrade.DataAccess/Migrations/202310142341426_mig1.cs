@@ -18,6 +18,7 @@
                         address = c.String(),
                         postalCode = c.String(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -38,6 +39,7 @@
                         title = c.String(),
                         code = c.String(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -56,6 +58,7 @@
                         brandName = c.String(),
                         imageId = c.Long(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -79,6 +82,7 @@
                         fileName = c.String(),
                         content = c.Binary(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -100,12 +104,14 @@
                         currencyId = c.Long(nullable: false),
                         brandId = c.Long(),
                         categoryId = c.Long(nullable: false),
-                        seller = c.Long(nullable: false),
+                        userId = c.Long(nullable: false),
                         rating = c.Double(nullable: false),
                         isSoldAbroad = c.Boolean(nullable: false),
                         description = c.String(),
-                        statusId = c.Long(),
+                        statusType = c.Int(nullable: false),
+                        stockStatusType = c.Int(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -113,18 +119,19 @@
                         updateIpAddress = c.String(),
                         updateTime = c.DateTime(),
                         lastTransaction = c.String(),
+                        StatusEntity_ID = c.Long(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Brand", t => t.brandId)
                 .ForeignKey("dbo.Category", t => t.categoryId)
                 .ForeignKey("dbo.Currency", t => t.currencyId)
-                .ForeignKey("dbo.Seller", t => t.seller)
-                .ForeignKey("dbo.Status", t => t.statusId)
+                .ForeignKey("dbo.User", t => t.userId)
+                .ForeignKey("dbo.Status", t => t.StatusEntity_ID)
                 .Index(t => t.currencyId)
                 .Index(t => t.brandId)
                 .Index(t => t.categoryId)
-                .Index(t => t.seller)
-                .Index(t => t.statusId);
+                .Index(t => t.userId)
+                .Index(t => t.StatusEntity_ID);
             
             CreateTable(
                 "dbo.Category",
@@ -137,6 +144,7 @@
                         link = c.String(),
                         imageId = c.Long(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -158,6 +166,7 @@
                         currencyCode = c.String(),
                         symbol = c.String(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -183,6 +192,7 @@
                         shippedDate = c.DateTime(),
                         currencyId = c.Long(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -210,8 +220,9 @@
                         price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         isFree = c.Boolean(nullable: false),
                         isSentAbroad = c.Boolean(nullable: false),
-                        sellerId = c.Long(),
+                        logoId = c.Long(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -221,93 +232,22 @@
                         lastTransaction = c.String(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Seller", t => t.sellerId)
-                .Index(t => t.sellerId);
+                .ForeignKey("dbo.Media", t => t.logoId)
+                .Index(t => t.logoId);
             
             CreateTable(
-                "dbo.Seller",
+                "dbo.Order",
                 c => new
                     {
                         ID = c.Long(nullable: false, identity: true),
-                        name = c.String(),
-                        description = c.String(),
                         userId = c.Long(nullable: false),
-                        coverImageId = c.Long(),
-                        avatarImageId = c.Long(),
-                        rating = c.Double(nullable: false),
+                        orderNo = c.String(),
+                        orderDate = c.DateTime(nullable: false),
+                        billingAddressId = c.Long(nullable: false),
+                        deliveryAddressId = c.Long(nullable: false),
+                        discountAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         isDeleted = c.Boolean(nullable: false),
-                        createUserName = c.String(),
-                        createIpAddress = c.String(),
-                        createTime = c.DateTime(nullable: false),
-                        updateUserName = c.String(),
-                        updateIpAddress = c.String(),
-                        updateTime = c.DateTime(),
-                        lastTransaction = c.String(),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Media", t => t.avatarImageId)
-                .ForeignKey("dbo.Media", t => t.coverImageId)
-                .ForeignKey("dbo.User", t => t.userId)
-                .Index(t => t.userId)
-                .Index(t => t.coverImageId)
-                .Index(t => t.avatarImageId);
-            
-            CreateTable(
-                "dbo.SellerAddress",
-                c => new
-                    {
-                        ID = c.Long(nullable: false, identity: true),
-                        sellerId = c.Long(nullable: false),
-                        addressId = c.Long(nullable: false),
-                        isActive = c.Boolean(nullable: false),
-                        isDeleted = c.Boolean(nullable: false),
-                        createUserName = c.String(),
-                        createIpAddress = c.String(),
-                        createTime = c.DateTime(nullable: false),
-                        updateUserName = c.String(),
-                        updateIpAddress = c.String(),
-                        updateTime = c.DateTime(),
-                        lastTransaction = c.String(),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Address", t => t.addressId)
-                .ForeignKey("dbo.Seller", t => t.sellerId)
-                .Index(t => t.sellerId)
-                .Index(t => t.addressId);
-            
-            CreateTable(
-                "dbo.SellerComment",
-                c => new
-                    {
-                        ID = c.Long(nullable: false, identity: true),
-                        SellerId = c.Long(nullable: false),
-                        commentId = c.Long(nullable: false),
-                        isActive = c.Boolean(nullable: false),
-                        isDeleted = c.Boolean(nullable: false),
-                        createUserName = c.String(),
-                        createIpAddress = c.String(),
-                        createTime = c.DateTime(nullable: false),
-                        updateUserName = c.String(),
-                        updateIpAddress = c.String(),
-                        updateTime = c.DateTime(),
-                        lastTransaction = c.String(),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Comment", t => t.commentId)
-                .ForeignKey("dbo.Seller", t => t.SellerId)
-                .Index(t => t.SellerId)
-                .Index(t => t.commentId);
-            
-            CreateTable(
-                "dbo.Comment",
-                c => new
-                    {
-                        ID = c.Long(nullable: false, identity: true),
-                        title = c.String(),
-                        text = c.String(),
-                        commentDate = c.DateTime(nullable: false),
-                        userId = c.Long(nullable: false),
-                        isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -331,9 +271,36 @@
                         phoneNumber = c.String(),
                         identityNumber = c.String(),
                         profilePhotoId = c.Long(),
-                        genderId = c.Long(nullable: false),
+                        gender = c.Int(nullable: false),
                         birthDate = c.DateTime(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
+                        createUserName = c.String(),
+                        createIpAddress = c.String(),
+                        createTime = c.DateTime(nullable: false),
+                        updateUserName = c.String(),
+                        updateIpAddress = c.String(),
+                        updateTime = c.DateTime(),
+                        lastTransaction = c.String(),
+                        GenderEntity_ID = c.Long(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Media", t => t.profilePhotoId)
+                .ForeignKey("dbo.Gender", t => t.GenderEntity_ID)
+                .Index(t => t.profilePhotoId)
+                .Index(t => t.GenderEntity_ID);
+            
+            CreateTable(
+                "dbo.Comment",
+                c => new
+                    {
+                        ID = c.Long(nullable: false, identity: true),
+                        title = c.String(),
+                        text = c.String(),
+                        commentDate = c.DateTime(nullable: false),
+                        userId = c.Long(nullable: false),
+                        isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -343,27 +310,8 @@
                         lastTransaction = c.String(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Gender", t => t.genderId)
-                .ForeignKey("dbo.Media", t => t.profilePhotoId)
-                .Index(t => t.profilePhotoId)
-                .Index(t => t.genderId);
-            
-            CreateTable(
-                "dbo.Gender",
-                c => new
-                    {
-                        ID = c.Long(nullable: false, identity: true),
-                        name = c.String(),
-                        isDeleted = c.Boolean(nullable: false),
-                        createUserName = c.String(),
-                        createIpAddress = c.String(),
-                        createTime = c.DateTime(nullable: false),
-                        updateUserName = c.String(),
-                        updateIpAddress = c.String(),
-                        updateTime = c.DateTime(),
-                        lastTransaction = c.String(),
-                    })
-                .PrimaryKey(t => t.ID);
+                .ForeignKey("dbo.User", t => t.userId)
+                .Index(t => t.userId);
             
             CreateTable(
                 "dbo.Message",
@@ -377,6 +325,7 @@
                         sendingTime = c.DateTime(nullable: false),
                         isContainsImages = c.Boolean(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -400,6 +349,7 @@
                         description = c.String(),
                         iconImageId = c.Long(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -421,6 +371,7 @@
                         productId = c.Long(nullable: false),
                         isActive = c.Boolean(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -447,6 +398,7 @@
                         DepartureDate = c.DateTime(),
                         isSeller = c.Boolean(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -462,30 +414,6 @@
                 .Index(t => t.chatId);
             
             CreateTable(
-                "dbo.Order",
-                c => new
-                    {
-                        ID = c.Long(nullable: false, identity: true),
-                        userId = c.Long(nullable: false),
-                        orderNo = c.Long(nullable: false),
-                        orderDate = c.DateTime(nullable: false),
-                        billingAddressId = c.Long(nullable: false),
-                        deliveryAddressId = c.Long(nullable: false),
-                        discountAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        isDeleted = c.Boolean(nullable: false),
-                        createUserName = c.String(),
-                        createIpAddress = c.String(),
-                        createTime = c.DateTime(nullable: false),
-                        updateUserName = c.String(),
-                        updateIpAddress = c.String(),
-                        updateTime = c.DateTime(),
-                        lastTransaction = c.String(),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.User", t => t.userId)
-                .Index(t => t.userId);
-            
-            CreateTable(
                 "dbo.UserAddress",
                 c => new
                     {
@@ -494,6 +422,7 @@
                         addressId = c.Long(nullable: false),
                         isActive = c.Boolean(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -518,6 +447,7 @@
                         isActive = c.Boolean(nullable: false),
                         count = c.Int(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -541,6 +471,7 @@
                         productId = c.Long(nullable: false),
                         isActive = c.Boolean(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -562,8 +493,9 @@
                         ID = c.Long(nullable: false, identity: true),
                         userId = c.Long(nullable: false),
                         roleId = c.Long(nullable: false),
-                        isActive = c.Boolean(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -586,6 +518,51 @@
                         name = c.String(),
                         description = c.String(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
+                        createUserName = c.String(),
+                        createIpAddress = c.String(),
+                        createTime = c.DateTime(nullable: false),
+                        updateUserName = c.String(),
+                        updateIpAddress = c.String(),
+                        updateTime = c.DateTime(),
+                        lastTransaction = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.RoleMethod",
+                c => new
+                    {
+                        ID = c.Long(nullable: false, identity: true),
+                        roleId = c.Long(nullable: false),
+                        methodId = c.Long(nullable: false),
+                        expiryDate = c.DateTime(),
+                        isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
+                        createUserName = c.String(),
+                        createIpAddress = c.String(),
+                        createTime = c.DateTime(nullable: false),
+                        updateUserName = c.String(),
+                        updateIpAddress = c.String(),
+                        updateTime = c.DateTime(),
+                        lastTransaction = c.String(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Method", t => t.methodId)
+                .ForeignKey("dbo.Role", t => t.roleId)
+                .Index(t => t.roleId)
+                .Index(t => t.methodId);
+            
+            CreateTable(
+                "dbo.Method",
+                c => new
+                    {
+                        ID = c.Long(nullable: false, identity: true),
+                        key = c.Int(nullable: false),
+                        name = c.String(),
+                        description = c.String(),
+                        isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -605,6 +582,7 @@
                         commentId = c.Long(nullable: false),
                         isActive = c.Boolean(nullable: false),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -620,25 +598,6 @@
                 .Index(t => t.commentId);
             
             CreateTable(
-                "dbo.Status",
-                c => new
-                    {
-                        ID = c.Long(nullable: false, identity: true),
-                        title = c.String(),
-                        description = c.String(),
-                        color = c.String(),
-                        isDeleted = c.Boolean(nullable: false),
-                        createUserName = c.String(),
-                        createIpAddress = c.String(),
-                        createTime = c.DateTime(nullable: false),
-                        updateUserName = c.String(),
-                        updateIpAddress = c.String(),
-                        updateTime = c.DateTime(),
-                        lastTransaction = c.String(),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
                 "dbo.CarouselItem",
                 c => new
                     {
@@ -648,6 +607,7 @@
                         title = c.String(),
                         subtitle = c.String(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -661,16 +621,88 @@
                 .Index(t => t.backgroudImageId);
             
             CreateTable(
+                "dbo.Gender",
+                c => new
+                    {
+                        ID = c.Long(nullable: false, identity: true),
+                        name = c.String(),
+                        isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
+                        createUserName = c.String(),
+                        createIpAddress = c.String(),
+                        createTime = c.DateTime(nullable: false),
+                        updateUserName = c.String(),
+                        updateIpAddress = c.String(),
+                        updateTime = c.DateTime(),
+                        lastTransaction = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
                 "dbo.Identity",
                 c => new
                     {
                         ID = c.Long(nullable: false, identity: true),
-                        userId = c.String(),
+                        userId = c.Long(nullable: false),
                         isActive = c.Boolean(nullable: false),
                         userName = c.String(),
                         passwordHash = c.String(),
                         passwordSalt = c.String(),
                         isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
+                        createUserName = c.String(),
+                        createIpAddress = c.String(),
+                        createTime = c.DateTime(nullable: false),
+                        updateUserName = c.String(),
+                        updateIpAddress = c.String(),
+                        updateTime = c.DateTime(),
+                        lastTransaction = c.String(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.User", t => t.userId)
+                .Index(t => t.userId);
+            
+           
+            
+            CreateTable(
+                "dbo.Session",
+                c => new
+                    {
+                        ID = c.Long(nullable: false, identity: true),
+                        identityId = c.Long(),
+                        userId = c.Long(),
+                        expiryDate = c.DateTime(nullable: false),
+                        ipAddress = c.String(),
+                        deviceType = c.Int(nullable: false),
+                        notifyToken = c.String(),
+                        token = c.Guid(nullable: false),
+                        isActive = c.Boolean(),
+                        isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
+                        createUserName = c.String(),
+                        createIpAddress = c.String(),
+                        createTime = c.DateTime(nullable: false),
+                        updateUserName = c.String(),
+                        updateIpAddress = c.String(),
+                        updateTime = c.DateTime(),
+                        lastTransaction = c.String(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.Identity", t => t.identityId)
+                .ForeignKey("dbo.User", t => t.userId)
+                .Index(t => t.identityId)
+                .Index(t => t.userId);
+            
+            CreateTable(
+                "dbo.Status",
+                c => new
+                    {
+                        ID = c.Long(nullable: false, identity: true),
+                        title = c.String(),
+                        description = c.String(),
+                        color = c.String(),
+                        isDeleted = c.Boolean(nullable: false),
+                        isDeletable = c.Boolean(),
                         createUserName = c.String(),
                         createIpAddress = c.String(),
                         createTime = c.DateTime(nullable: false),
@@ -685,24 +717,27 @@
         
         public override void Down()
         {
+            DropForeignKey("dbo.Product", "StatusEntity_ID", "dbo.Status");
+            DropForeignKey("dbo.Session", "userId", "dbo.User");
+            DropForeignKey("dbo.Session", "identityId", "dbo.Identity");
+            DropForeignKey("dbo.Identity", "userId", "dbo.User");
+            DropForeignKey("dbo.User", "GenderEntity_ID", "dbo.Gender");
             DropForeignKey("dbo.CarouselItem", "backgroudImageId", "dbo.Media");
-            DropForeignKey("dbo.Product", "statusId", "dbo.Status");
+            DropForeignKey("dbo.Product", "userId", "dbo.User");
             DropForeignKey("dbo.ProductComment", "productId", "dbo.Product");
             DropForeignKey("dbo.ProductComment", "commentId", "dbo.Comment");
             DropForeignKey("dbo.OrderDetail", "productId", "dbo.Product");
-            DropForeignKey("dbo.SellerComment", "SellerId", "dbo.Seller");
-            DropForeignKey("dbo.SellerComment", "commentId", "dbo.Comment");
             DropForeignKey("dbo.UserRole", "userId", "dbo.User");
             DropForeignKey("dbo.UserRole", "roleId", "dbo.Role");
+            DropForeignKey("dbo.RoleMethod", "roleId", "dbo.Role");
+            DropForeignKey("dbo.RoleMethod", "methodId", "dbo.Method");
             DropForeignKey("dbo.UserFavourite", "userId", "dbo.User");
             DropForeignKey("dbo.UserFavourite", "productId", "dbo.Product");
             DropForeignKey("dbo.UserCart", "userId", "dbo.User");
             DropForeignKey("dbo.UserCart", "productId", "dbo.Product");
             DropForeignKey("dbo.UserAddress", "userId", "dbo.User");
             DropForeignKey("dbo.UserAddress", "addressId", "dbo.Address");
-            DropForeignKey("dbo.Seller", "userId", "dbo.User");
             DropForeignKey("dbo.Order", "userId", "dbo.User");
-            DropForeignKey("dbo.OrderDetail", "orderId", "dbo.Order");
             DropForeignKey("dbo.Message", "sentUserId", "dbo.User");
             DropForeignKey("dbo.UserChat", "userId", "dbo.User");
             DropForeignKey("dbo.UserChat", "chatId", "dbo.Chat");
@@ -711,15 +746,10 @@
             DropForeignKey("dbo.Message", "chatId", "dbo.Chat");
             DropForeignKey("dbo.Chat", "iconImageId", "dbo.Media");
             DropForeignKey("dbo.User", "profilePhotoId", "dbo.Media");
-            DropForeignKey("dbo.User", "genderId", "dbo.Gender");
             DropForeignKey("dbo.Comment", "userId", "dbo.User");
-            DropForeignKey("dbo.SellerAddress", "sellerId", "dbo.Seller");
-            DropForeignKey("dbo.SellerAddress", "addressId", "dbo.Address");
-            DropForeignKey("dbo.Product", "seller", "dbo.Seller");
-            DropForeignKey("dbo.DeliveryOptionEntities", "sellerId", "dbo.Seller");
-            DropForeignKey("dbo.Seller", "coverImageId", "dbo.Media");
-            DropForeignKey("dbo.Seller", "avatarImageId", "dbo.Media");
+            DropForeignKey("dbo.OrderDetail", "orderId", "dbo.Order");
             DropForeignKey("dbo.OrderDetail", "deliveryOptionId", "dbo.DeliveryOptionEntities");
+            DropForeignKey("dbo.DeliveryOptionEntities", "logoId", "dbo.Media");
             DropForeignKey("dbo.OrderDetail", "currencyId", "dbo.Currency");
             DropForeignKey("dbo.Product", "currencyId", "dbo.Currency");
             DropForeignKey("dbo.Product", "categoryId", "dbo.Category");
@@ -727,9 +757,14 @@
             DropForeignKey("dbo.Product", "brandId", "dbo.Brand");
             DropForeignKey("dbo.Brand", "imageId", "dbo.Media");
             DropForeignKey("dbo.Address", "countryId", "dbo.Country");
+            DropIndex("dbo.Session", new[] { "userId" });
+            DropIndex("dbo.Session", new[] { "identityId" });
+            DropIndex("dbo.Identity", new[] { "userId" });
             DropIndex("dbo.CarouselItem", new[] { "backgroudImageId" });
             DropIndex("dbo.ProductComment", new[] { "commentId" });
             DropIndex("dbo.ProductComment", new[] { "productId" });
+            DropIndex("dbo.RoleMethod", new[] { "methodId" });
+            DropIndex("dbo.RoleMethod", new[] { "roleId" });
             DropIndex("dbo.UserRole", new[] { "roleId" });
             DropIndex("dbo.UserRole", new[] { "userId" });
             DropIndex("dbo.UserFavourite", new[] { "productId" });
@@ -738,7 +773,6 @@
             DropIndex("dbo.UserCart", new[] { "userId" });
             DropIndex("dbo.UserAddress", new[] { "addressId" });
             DropIndex("dbo.UserAddress", new[] { "userId" });
-            DropIndex("dbo.Order", new[] { "userId" });
             DropIndex("dbo.UserChat", new[] { "chatId" });
             DropIndex("dbo.UserChat", new[] { "userId" });
             DropIndex("dbo.ProductChatEntities", new[] { "productId" });
@@ -746,49 +780,43 @@
             DropIndex("dbo.Chat", new[] { "iconImageId" });
             DropIndex("dbo.Message", new[] { "sentUserId" });
             DropIndex("dbo.Message", new[] { "chatId" });
-            DropIndex("dbo.User", new[] { "genderId" });
-            DropIndex("dbo.User", new[] { "profilePhotoId" });
             DropIndex("dbo.Comment", new[] { "userId" });
-            DropIndex("dbo.SellerComment", new[] { "commentId" });
-            DropIndex("dbo.SellerComment", new[] { "SellerId" });
-            DropIndex("dbo.SellerAddress", new[] { "addressId" });
-            DropIndex("dbo.SellerAddress", new[] { "sellerId" });
-            DropIndex("dbo.Seller", new[] { "avatarImageId" });
-            DropIndex("dbo.Seller", new[] { "coverImageId" });
-            DropIndex("dbo.Seller", new[] { "userId" });
-            DropIndex("dbo.DeliveryOptionEntities", new[] { "sellerId" });
+            DropIndex("dbo.User", new[] { "GenderEntity_ID" });
+            DropIndex("dbo.User", new[] { "profilePhotoId" });
+            DropIndex("dbo.Order", new[] { "userId" });
+            DropIndex("dbo.DeliveryOptionEntities", new[] { "logoId" });
             DropIndex("dbo.OrderDetail", new[] { "currencyId" });
             DropIndex("dbo.OrderDetail", new[] { "deliveryOptionId" });
             DropIndex("dbo.OrderDetail", new[] { "productId" });
             DropIndex("dbo.OrderDetail", new[] { "orderId" });
             DropIndex("dbo.Category", new[] { "imageId" });
-            DropIndex("dbo.Product", new[] { "statusId" });
-            DropIndex("dbo.Product", new[] { "seller" });
+            DropIndex("dbo.Product", new[] { "StatusEntity_ID" });
+            DropIndex("dbo.Product", new[] { "userId" });
             DropIndex("dbo.Product", new[] { "categoryId" });
             DropIndex("dbo.Product", new[] { "brandId" });
             DropIndex("dbo.Product", new[] { "currencyId" });
             DropIndex("dbo.Brand", new[] { "imageId" });
             DropIndex("dbo.Address", new[] { "countryId" });
-            DropTable("dbo.Identity");
-            DropTable("dbo.CarouselItem");
             DropTable("dbo.Status");
+            DropTable("dbo.Session");
+            DropTable("dbo.Identity");
+            DropTable("dbo.Gender");
+            DropTable("dbo.CarouselItem");
             DropTable("dbo.ProductComment");
+            DropTable("dbo.Method");
+            DropTable("dbo.RoleMethod");
             DropTable("dbo.Role");
             DropTable("dbo.UserRole");
             DropTable("dbo.UserFavourite");
             DropTable("dbo.UserCart");
             DropTable("dbo.UserAddress");
-            DropTable("dbo.Order");
             DropTable("dbo.UserChat");
             DropTable("dbo.ProductChatEntities");
             DropTable("dbo.Chat");
             DropTable("dbo.Message");
-            DropTable("dbo.Gender");
-            DropTable("dbo.User");
             DropTable("dbo.Comment");
-            DropTable("dbo.SellerComment");
-            DropTable("dbo.SellerAddress");
-            DropTable("dbo.Seller");
+            DropTable("dbo.User");
+            DropTable("dbo.Order");
             DropTable("dbo.DeliveryOptionEntities");
             DropTable("dbo.OrderDetail");
             DropTable("dbo.Currency");

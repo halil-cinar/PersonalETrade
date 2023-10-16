@@ -33,6 +33,14 @@ namespace ETrade.Business
             {
                 try
                 {
+
+                    while(GetAll().Where(x=>x.UserName== userName).Any())
+                    {
+                        userName += ExtensionMethods.GenerateRandomNumber(2);
+                    }
+
+
+
                     var oldIdentities=GetAll(x=> x.UserId == userId&&x.isActive==true);
                     foreach(var oldIdentity in oldIdentities)
                     {
@@ -51,7 +59,7 @@ namespace ETrade.Business
                         CreateTime = DateTime.Now,
                         CreateUserName = UserName,
                         CreateIPAddress = IpAddress,
-                        IsDeleted = false,
+                        isDeleted = false,
                         LastTransaction = "Identity has been added"
                     };
                     entity.PasswordHash = ExtensionMethods.CalculateMD5Hash(password + entity.PasswordSalt);
@@ -64,6 +72,7 @@ namespace ETrade.Business
                     }
                     if (validationResult.Errors.Count > 0)
                     {
+                        scope.Dispose();
                         foreach (var error in validationResult.Errors)
                         {
                             response.AddErrorMessages(ErrorMessageCode.IdentityAddIdentityValidationError, error.ErrorMessage);
@@ -74,8 +83,12 @@ namespace ETrade.Business
                 }
                 catch (Exception ex)
                 {
+                    scope.Dispose();
                     response.AddErrorMessages(ErrorMessageCode.IdentityAddIdentityExceptionError, ex.Message);
+
                 }
+                scope.Complete();
+
             }
             return response;
         }
@@ -96,7 +109,7 @@ namespace ETrade.Business
                        var validationResult= Validator.Validate(entity);
                         if (validationResult.IsValid)
                         {
-                            entity.IsDeleted = true;
+                            entity.isDeleted = true;
                             Update(entity);
                         }
                         else
@@ -149,7 +162,7 @@ namespace ETrade.Business
         //    try
         //    {
         //        var entity = GetById(identityId);
-        //        entity.IsDeleted = true;
+        //        entity.isDeleted = true;
 
         //        Update(entity);
         //    }

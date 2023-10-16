@@ -10,7 +10,8 @@ namespace ETrade.Dto.Response
     {   
         Unknown=0,
         Success,
-        Error
+        Error,
+        NotAuthorised
 
 
     }

@@ -7,13 +7,13 @@ namespace ETrade.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class mig_change_type_of_gender_from_user : IMigrationMetadata
+    public sealed partial class addsessionview : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(mig_change_type_of_gender_from_user));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addsessionview));
         
         string IMigrationMetadata.Id
         {
-            get { return "202308260703359_mig_change_type_of_gender_from_user"; }
+            get { return "202310151707247_addsessionview"; }
         }
         
         string IMigrationMetadata.Source

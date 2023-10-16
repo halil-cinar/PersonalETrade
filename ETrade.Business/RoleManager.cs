@@ -39,7 +39,7 @@ namespace ETrade.Business
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
                     CreateIPAddress = IpAddress,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "Role has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -79,7 +79,7 @@ namespace ETrade.Business
                     entity.Description = roleDto.Description;
 
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "Role Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -124,7 +124,7 @@ namespace ETrade.Business
                     {
                         _userRoleManager.DeleteUserRole(userRole.Id);
                     }
-                    entity.IsDeleted = true;
+                    entity.isDeleted = true;
                     Update(entity);
                 }
                 

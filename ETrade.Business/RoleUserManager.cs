@@ -37,7 +37,7 @@ namespace ETrade.Business
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
                     CreateIPAddress = IpAddress,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "UserRole has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -78,7 +78,7 @@ namespace ETrade.Business
                     entity.RoleId = userRoleDto.RoleId;
                     entity.IsActive= userRoleDto.IsActive;
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "UserRole Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -113,7 +113,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(userRoleId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
             }
             catch (Exception ex)
@@ -142,7 +142,7 @@ namespace ETrade.Business
                     foreach(var userRole in userRoles.Result)
                     {
                         var entity = GetById(userRole.Id);
-                        entity.IsDeleted = true;
+                        entity.isDeleted = true;
                         Update(entity);
                     }
 
@@ -177,7 +177,7 @@ namespace ETrade.Business
                     }
                     if (userRoleFilter.IsActive != null)
                     {
-                        query += $"isActive= {userRoleFilter.IsActive} and ";
+                        query += $"isActive= {Convert.ToInt32(userRoleFilter.IsActive)} and ";
                     }
 
 

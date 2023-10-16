@@ -36,7 +36,7 @@ namespace ETrade.Business
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
                     CreateIPAddress = IpAddress,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "Country has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -76,7 +76,7 @@ namespace ETrade.Business
                     entity.Title = countryDto.Title;
 
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "Country Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -111,7 +111,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(countryId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
             }
             catch (Exception ex)
@@ -166,14 +166,8 @@ namespace ETrade.Business
             {
                 var result = new CountryLoadMoreDto();
                 List<CountryListDto> contentList = new List<CountryListDto>();
-                if (filter.Filter == null)
-                {
-                    contentList = GetAll().Select(x => mapper.Map<CountryListDto>(x)).ToList();
-
-
-                }
-                else
-                {
+                
+                
                     var filterResult = Filter(filter.Filter);
                     if (filterResult.ErrorMessages.Count > 0)
                     {
@@ -184,7 +178,7 @@ namespace ETrade.Business
                         contentList = filterResult.Result;
                     }
 
-                }
+                
 
                 var contentCount = contentList.Count;
                 var firstIndex = filter.PageCount * contentCount;

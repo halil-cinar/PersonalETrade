@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ETrade.Business.Abstract;
 using ETrade.Core.Abstract.DataAccess;
+using ETrade.DataAccess.EntityFrameworkCore;
 using ETrade.Dto.Dtos.Session;
 using ETrade.Dto.Errors;
 using ETrade.Dto.Filters;
@@ -47,7 +48,7 @@ namespace ETrade.Business
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
                     CreateIPAddress = IpAddress,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "Session has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -92,7 +93,7 @@ namespace ETrade.Business
                     entity.Token = Guid.NewGuid();
 
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "Session Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -127,7 +128,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(sessionId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 
                 Update(entity);
             }
@@ -173,6 +174,8 @@ namespace ETrade.Business
                         query += $"isActive = {sessionFilter.IsActive} and ";
                     }
 
+                    
+
 
 
                 }
@@ -181,7 +184,11 @@ namespace ETrade.Business
                     query = query.Substring(0, query.Length - " and ".Length);
                 }
 
-                response.Result = GetAll(query).Select(x => mapper.Map<SessionListDto>(x)).ToList();
+                using(var db=new DatabaseContext())
+                {
+                    response.Result = db.SessionLists.SqlQuery(query).Select(x => mapper.Map<SessionListDto>(x)).ToList();
+                }
+               
 
 
             }
@@ -258,7 +265,11 @@ namespace ETrade.Business
             var response = new BusinessLayerResult<SessionListDto>();
             try
             {
-                var entity = GetById(id);
+                SessionListEntity? entity;
+                using (var db = new DatabaseContext())
+                {
+                    entity = db.SessionLists.FirstOrDefault(s => s.ID==id);
+                }
                 if (entity != null)
                 {
                     response.Result = mapper.Map<SessionListDto>(entity);
@@ -281,11 +292,14 @@ namespace ETrade.Business
             var response = new BusinessLayerResult<SessionListDto>();
             try
             {
-                var entity = Get(x => x.Token == token);
+                SessionListEntity? entity;
+                using(var db=new DatabaseContext())
+                {
+                    entity=db.SessionLists.FirstOrDefault(s => s.Token == token);   
+                }
                 if (entity != null)
                 {
                     response.Result = mapper.Map<SessionListDto>(entity);
-
                 }
                 else
                 {
@@ -304,7 +318,12 @@ namespace ETrade.Business
             var response = new BusinessLayerResult<SessionListDto>();
             try
             {
-                var entity = Get(x => x.IpAddress.Equals(ipAdress)&&(x.ExpiryDate==null||x.ExpiryDate>DateTime.Now));
+
+                SessionListEntity? entity;
+                using (var db = new DatabaseContext())
+                {
+                    entity = db.SessionLists.FirstOrDefault(x => x.IpAddress.Equals(ipAdress) && (x.ExpiryDate == null || x.ExpiryDate > DateTime.Now));
+                }
                
                     response.Result = mapper.Map<SessionListDto>(entity);
 

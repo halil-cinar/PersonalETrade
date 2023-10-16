@@ -10,12 +10,12 @@ namespace ETrade.Dto.Filters
     public class UserRoleFilter
     {
         [JsonProperty(PropertyName = "userId")]
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         [JsonProperty(PropertyName = "roleId")]
-        public long RoleId { get; set; }
+        public long? RoleId { get; set; }
 
         [JsonProperty(PropertyName = "isActive")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

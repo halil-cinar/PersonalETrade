@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ETrade.DataAccess.EntityFrameworkCore;
 
 namespace ETrade.Business
 {
@@ -38,7 +39,7 @@ namespace ETrade.Business
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
                     CreateIPAddress = IpAddress,
-                    IsDeleted = false,
+                    isDeleted = false,
                     LastTransaction = "RoleMethod has been added"
                 };
                 var validationResult = Validator.Validate(entity);
@@ -80,7 +81,7 @@ namespace ETrade.Business
 
 
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "RoleMethod Updated";
                     entity.UpdateIpAddress = IpAddress;
                     entity.UpdateTime = DateTime.Now;
@@ -115,7 +116,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(roleMethodId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
 
                 Update(entity);
             }
@@ -131,7 +132,7 @@ namespace ETrade.Business
             var response = new BusinessLayerResult<List<RoleMethodListDto>>();
             try
             {
-                var query = "select * from RoleMethod where isDeleted=0 and ";
+                var query = "select * from RoleMethodListView where isDeleted=0 and ";
 
                 if (roleMethodFilter != null)
                 {
@@ -153,8 +154,12 @@ namespace ETrade.Business
                 {
                     query = query.Substring(0, query.Length - " and ".Length);
                 }
+                using(var db=new DatabaseContext())
+                {
+                    response.Result = db.RoleMethodLists.SqlQuery(query).Select(x => mapper.Map<RoleMethodListDto>(x)).ToList();
+                }
 
-                response.Result = GetAll(query).Select(x => mapper.Map<RoleMethodListDto>(x)).ToList();
+                
 
 
             }

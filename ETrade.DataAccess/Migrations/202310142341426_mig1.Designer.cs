@@ -7,13 +7,13 @@ namespace ETrade.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class DeletedSeller : IMigrationMetadata
+    public sealed partial class mig1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DeletedSeller));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(mig1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202310011040397_DeletedSeller"; }
+            get { return "202310142341426_mig1"; }
         }
         
         string IMigrationMetadata.Source

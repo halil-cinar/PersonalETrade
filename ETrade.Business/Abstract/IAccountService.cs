@@ -36,7 +36,7 @@ namespace ETrade.Business.Abstract
         public BusinessLayerResult<List<RoleListDto>> GetUserRoles(long userId);
 
 
-
+        public BusinessLayerResult<List<RoleMethodListDto>> GetGuestRoleMethods();
 
 
     }

@@ -71,7 +71,7 @@ namespace ETrade.Business
                         CreateIPAddress = IpAddress,
                         CreateTime = DateTime.Now,
                         CreateUserName = UserName,
-                        IsDeleted = false,
+                        isDeleted = false,
                         LastTransaction = "DeliveryOption has been added"
                     };
                     var validationResult = Validator.Validate(entity);
@@ -152,7 +152,7 @@ namespace ETrade.Business
                         entity.IsFree = deliveryOptionDto.IsFree;
                         entity.IsSentAbroad = deliveryOptionDto.IsSentAbroad;
 
-                        entity.IsDeleted = false;
+                        entity.isDeleted = false;
                         entity.LastTransaction = "DeliveryOption Updated";
                         entity.UpdateIpAddress = IpAddress;
                         entity.UpdateTime = DateTime.Now;
@@ -190,7 +190,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(deliveryOptionId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
                 response.Result = mapper.Map<DeliveryOptionListDto>(entity);
             }

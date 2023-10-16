@@ -60,7 +60,7 @@ namespace ETrade.Business
                         CreateTime = DateTime.Now,
                         CreateUserName = UserName,
                         CreateIPAddress = IpAddress,
-                        IsDeleted = false,
+                        isDeleted = false,
                         LastTransaction = "User has been added"
                     };
                     var validationResult = Validator.Validate(entity);
@@ -118,6 +118,8 @@ namespace ETrade.Business
                         };
                     }
                     
+                    
+
                     var identityResult = _identityManager.AddIdentity(userDto.Identity.Password,userDto.Identity.UserName, entity.ID);
                     if (identityResult.ErrorMessages.Count > 0)
                     {
@@ -163,9 +165,9 @@ namespace ETrade.Business
                     entity.Name = userDto.Name;
                     entity.BirthDate = userDto.BirthDate;
                     entity.Gender = userDto.Gender;
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
 
-                    entity.IsDeleted = false;
+                    entity.isDeleted = false;
                     entity.LastTransaction = "User Updated";
 
 
@@ -211,7 +213,7 @@ namespace ETrade.Business
                         //mediaEntity.CreateIPAddress = IpAddress;
                         //mediaEntity.CreateTime=DateTime.Now;
                         //mediaEntity.CreateUserName= UserName;
-                        //mediaEntity.IsDeleted = false;
+                        //mediaEntity.isDeleted = false;
                         var mediaResult = new BusinessLayerResult<MediaListDto>();
                         if (mediaDto.Id == null)
                         {
@@ -259,7 +261,7 @@ namespace ETrade.Business
                 {
                     // delete user
                     var entity = GetById(userId);
-                    entity.IsDeleted = true;
+                    entity.isDeleted = true;
                     Update(entity);
 
                     // delete user roles

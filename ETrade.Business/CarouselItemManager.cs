@@ -71,7 +71,7 @@ namespace ETrade.Business
                         CreateIPAddress = IpAddress,
                         CreateTime = DateTime.Now,
                         CreateUserName = UserName,
-                        IsDeleted = false,
+                        isDeleted = false,
                         LastTransaction = "CarouselItem has been added"
                     };
                     var validationResult = Validator.Validate(entity);
@@ -152,7 +152,7 @@ namespace ETrade.Business
                         entity.Subtitle = carouselItemDto.Subtitle;
                         entity.Title = carouselItemDto.Title;
 
-                        entity.IsDeleted = false;
+                        entity.isDeleted = false;
                         entity.LastTransaction = "CarouselItem Updated";
                         entity.UpdateIpAddress = IpAddress;
                         entity.UpdateTime = DateTime.Now;
@@ -190,7 +190,7 @@ namespace ETrade.Business
             try
             {
                 var entity = GetById(carouselItemId);
-                entity.IsDeleted = true;
+                entity.isDeleted = true;
                 Update(entity);
                 response.Result = mapper.Map<CarouselItemListDto>(entity);
             }

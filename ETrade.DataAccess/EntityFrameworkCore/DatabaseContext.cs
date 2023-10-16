@@ -22,6 +22,9 @@ namespace ETrade.DataAccess.EntityFrameworkCore
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
 
+            
+
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -83,6 +86,11 @@ namespace ETrade.DataAccess.EntityFrameworkCore
 
         public DbSet<RoleMethodEntity> RoleMethods { get; set; }
 
+        //Views
+
+        public DbSet<RoleMethodListEntity> RoleMethodLists { get; set; }
+
+        public DbSet<SessionListEntity> SessionLists { get; set; }
 
     }
 }

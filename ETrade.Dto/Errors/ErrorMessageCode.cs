@@ -224,6 +224,22 @@ namespace ETrade.Dto.Errors
         AccountForgatenPasswordAnonymousExceptionError,
         AccountGetActiveSessionByIpExceptionError,
         AccountExceptionError,
-        AddressExceptionError
+        AddressExceptionError,
+        AuthorisedExceptionError,
+        CountryExceptionError,
+        BrandExceptionError,
+        CategoryExceptionError,
+        CommentExceptionError,
+        CurrencyExceptionError,
+        DeliveryOptionExceptionError,
+        GenderExceptionError,
+        MediaExceptionError,
+        OrderDetailExceptionError,
+        OrderExceptionError,
+        ProductExceptionError,
+        RoleExceptionError,
+        RoleMethodExceptionError,
+        UserRoleExceptionError,
+        UserExceptionError
     }
 }
