@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -83,6 +84,19 @@ namespace ETrade.Core.Utils
             password = password.OrderBy(c => random.Next()).ToArray();
 
             return new string(password);
+        }
+
+        public static string ToPascalCase(string input)
+        {
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+            string[] words = input.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                words[i] = textInfo.ToTitleCase(words[i]);
+            }
+
+            return string.Join("", words).Replace("İ","I");
         }
 
 

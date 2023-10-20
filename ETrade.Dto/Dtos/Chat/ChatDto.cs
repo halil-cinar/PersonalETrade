@@ -1,4 +1,5 @@
 
+using ETrade.Dto.Dtos.Media;
 using ETrade.Entities.Concrete;
 using Newtonsoft.Json;
 using System;
@@ -20,15 +21,20 @@ namespace ETrade.Dto.Dtos. Chat
         [JsonProperty(PropertyName= "description")]
         public string Description { get; set; }
 
-        [JsonProperty(PropertyName= "iconImageId")]
+        [JsonProperty(PropertyName = "iconImageId")]
         public long? IconImageId { get; set; }
 
-        
+        [JsonProperty(PropertyName = "iconImageId")]
+        public MediaDto IconImage { get; set; }
 
 
 
 
-    
-        }
+
+
+
+
+
     }
+}
     

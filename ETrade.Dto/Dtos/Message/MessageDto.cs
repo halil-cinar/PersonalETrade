@@ -1,4 +1,5 @@
 
+using ETrade.Dto.Dtos.Media;
 using ETrade.Entities.Concrete;
 using Newtonsoft.Json;
 using System;
@@ -29,8 +30,13 @@ namespace ETrade.Dto.Dtos. Message
         [JsonProperty(PropertyName= "sendingTime")]
         public DateTime SendingTime { get; set;}
 
-        [JsonProperty(PropertyName= "isContainsImages")]
+        [JsonProperty(PropertyName = "isContainsImages")]
         public bool IsContainsImages { get; set; }
+
+        [JsonProperty(PropertyName = "medias")]
+        public MediaDto[]?  Medias { get; set; }
+
+
 
 
         [ForeignKey("ChatId")]

@@ -1,4 +1,5 @@
 ﻿using ETrade.Dto.Dtos.Media;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,32 +11,32 @@ namespace ETrade.Dto.Dtos.User
 {
     public class UserDto2
     {
-        [Column("name")]
+        [JsonProperty(PropertyName="name")]
         public string Name { get; set; }
 
 
-        [Column("surname")]
+        [JsonProperty(PropertyName="surname")]
         public string Surname { get; set; }
 
-        [Column("email")]
+        [JsonProperty(PropertyName="email")]
         public string Email { get; set; }
 
-        [Column("phoneNumber")]
+        [JsonProperty(PropertyName="phoneNumber")]
         public string Phone { get; set; }
 
-        [Column("identityNumber")]
+        [JsonProperty(PropertyName="identityNumber")]
         public string IdentityNumber { get; set; }
 
 
 
-        [Column("profilePhoto")]
+        [JsonProperty(PropertyName="profilePhoto")]
         public MediaListDto? ProfilePhoto { get; set; }
 
-        [Column("genderId")]
+        [JsonProperty(PropertyName="genderId")]
         public long GenderId { get; set; }
 
 
-        [Column("birthDate")]
+        [JsonProperty(PropertyName="birthDate")]
         public DateTime? BirthDate { get; set; }
     }
 }

@@ -21,6 +21,9 @@ namespace ETrade.Entities.Concrete
         [Column("fileType")]
         public FileType FileType { get; set; }
 
+        [Column("contentType")]
+        public string ContentType { get; set; }
+
         [Column("fileName")]
         public string FileName { get; set; }
 
@@ -28,6 +31,7 @@ namespace ETrade.Entities.Concrete
         public byte[] Content { get; set; }
 
 
+        public virtual ICollection<MessageMediaEntity> MessageMedias { get; set; }
 
 
 

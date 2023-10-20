@@ -31,7 +31,7 @@ namespace ETrade.WebApi.Controllers
 
         private readonly List<RoleMethodListDto> _UserMethods;
 
-        public UserRoleController(IHttpContextAccessor httpContextAccessor, IAccountService accountManager)
+        public RoleUserController(IHttpContextAccessor httpContextAccessor, IAccountService accountManager)
         {
             var token = httpContextAccessor.HttpContext.Request.Query["Authorization"];
             Debug.WriteLine(token);

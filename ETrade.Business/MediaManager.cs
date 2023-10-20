@@ -35,7 +35,8 @@ namespace ETrade.Business
                     EntityType=mediaDto.EntityType,
                     FileName=mediaDto.FileName,
                     FileType=mediaDto.FileType,
-                    
+                    ContentType=mediaDto.ContentType,
+
                     CreateIPAddress=IpAddress,
                     CreateTime = DateTime.Now,
                     CreateUserName = UserName,
@@ -80,6 +81,7 @@ namespace ETrade.Business
                     entity.EntityType = mediaDto.EntityType;   
                     entity.FileName = mediaDto.FileName;
                     entity.FileType = mediaDto.FileType;
+                    entity.ContentType = mediaDto.ContentType;
 
                     entity.isDeleted = false;
                     entity.LastTransaction = "Media Updated";

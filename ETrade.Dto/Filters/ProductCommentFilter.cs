@@ -14,13 +14,13 @@ namespace ETrade.Dto.Filters
         {
             
         [JsonProperty(PropertyName= "productId")]
-        public long ProductId { get; set; }
+        public long? ProductId { get; set; }
 
         [JsonProperty(PropertyName= "commentId")]
-        public long CommentId { get; set; }
+        public long? CommentId { get; set; }
 
         [JsonProperty(PropertyName= "isActive")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
        
     

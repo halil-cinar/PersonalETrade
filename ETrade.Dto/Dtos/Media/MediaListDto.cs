@@ -25,5 +25,8 @@ namespace ETrade.Dto.Dtos.Media
 
         [JsonProperty(PropertyName="content")]
         public byte[] Content { get; set; }
+
+        [JsonProperty(PropertyName="contentType")]
+        public string ContentType { get; set; }
     }
 }

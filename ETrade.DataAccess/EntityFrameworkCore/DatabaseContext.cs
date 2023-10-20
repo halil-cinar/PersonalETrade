@@ -57,6 +57,8 @@ namespace ETrade.DataAccess.EntityFrameworkCore
 
         public DbSet<MessageEntity> Messages { get; set; }
 
+        public DbSet<MessageMediaEntity> MessageMedias { get; set; }
+
         public DbSet<OrderDetailEntity> OrderDetails { get; set; }
 
         public DbSet<OrderEntity> Orders { get; set; }

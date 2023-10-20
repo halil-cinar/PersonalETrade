@@ -11,6 +11,7 @@ using ETrade.Entities.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ETrade.Core.Utils;
 
 namespace ETrade.WebApi.Controllers
 {
@@ -85,59 +86,81 @@ namespace ETrade.WebApi.Controllers
             _accountManager = accountManager;
         }
 
+        //[HttpPost]
+        //[Route("GetAll")]
+        //public Response<MediaLoadMoreDto> GetAll([FromBody] BaseLoadMoreFilter<MediaFilter> filter, [FromQuery] string Authorization)
+        //{
+        //    var response = new Response<MediaLoadMoreDto>();
+        //    try
+        //    {
+
+        //        var result = _mediaManager.FilterMediaList(filter);
+        //        if (result.ErrorMessages.Count > 0)
+        //        {
+        //            response.StatusCode = ResponseStatusCode.Error;
+        //            response.Message.AddRange(result.ErrorMessages);
+        //        }
+        //        else
+        //        {
+        //            response.StatusCode = ResponseStatusCode.Success;
+        //            response.Data = result.Result;
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.StatusCode = ResponseStatusCode.Error;
+        //        response.Message.Add(new ErrorMessageObj
+        //        {
+        //            ErrorCode = ErrorMessageCode.MediaExceptionError,
+        //            Message = ex.Message
+        //        });
+        //    }
+
+        //    return response;
+
+
+        //}
+
         [HttpPost]
-        [Route("GetAll")]
-        public Response<MediaLoadMoreDto> GetAll([FromBody] BaseLoadMoreFilter<MediaFilter> filter, [FromQuery] string Authorization)
+        [Route("add2")]
+        public IActionResult Add2([FromBody] Microsoft.AspNetCore.Http.IFormFile file)
         {
-            var response = new Response<MediaLoadMoreDto>();
-            try
-            {
-
-                var result = _mediaManager.FilterMediaList(filter);
-                if (result.ErrorMessages.Count > 0)
-                {
-                    response.StatusCode = ResponseStatusCode.Error;
-                    response.Message.AddRange(result.ErrorMessages);
-                }
-                else
-                {
-                    response.StatusCode = ResponseStatusCode.Success;
-                    response.Data = result.Result;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                response.StatusCode = ResponseStatusCode.Error;
-                response.Message.Add(new ErrorMessageObj
-                {
-                    ErrorCode = ErrorMessageCode.MediaExceptionError,
-                    Message = ex.Message
-                });
-            }
-
-            return response;
-
-
+            return Ok(file.Name);
         }
+
 
         [HttpPost]
         [Route("Add")]
-        public Response<MediaListDto> Add([FromBody] MediaDto mediaDto, [FromQuery] string Authorization)
+
+        public async Task<Response<MediaListDto>> Add( IFormFile file, [FromQuery] string Authorization)
         {
             var response = new Response<MediaListDto>();
             try
             {
-                var result = _mediaManager.AddMedia(mediaDto);
-                if (result.ErrorMessages.Count > 0)
+                using (var stream = new MemoryStream())
                 {
-                    response.StatusCode = ResponseStatusCode.Error;
-                    response.Message.AddRange(result.ErrorMessages);
-                }
-                else
-                {
-                    response.StatusCode = ResponseStatusCode.Success;
-                    response.Data = result.Result;
+                    await file.CopyToAsync(stream);
+
+                    var result = _mediaManager.AddMedia(new MediaDto
+                    {
+                        FileName = file.FileName,
+                        FileType = Enum.Parse<FileType>(ExtensionMethods.ToPascalCase(file.ContentType.Split("/")[0])),
+                        Content =stream.ToArray(),
+                        ContentType= file.ContentType,
+                        
+                    });
+                    if (result.ErrorMessages.Count > 0)
+                    {
+                        response.StatusCode = ResponseStatusCode.Error;
+                        response.Message.AddRange(result.ErrorMessages);
+                    }
+                    else
+                    {
+                        response.StatusCode = ResponseStatusCode.Success;
+                        response.Data = result.Result;
+                        response.Data.Content = null;
+                    }
                 }
 
             }
@@ -171,6 +194,7 @@ namespace ETrade.WebApi.Controllers
                 {
                     response.StatusCode = ResponseStatusCode.Success;
                     response.Data = result.Result;
+                    response.Data.Content = null;
                 }
 
             }
@@ -206,6 +230,7 @@ namespace ETrade.WebApi.Controllers
                 {
                     response.StatusCode = ResponseStatusCode.Success;
                     response.Data = result.Result;
+                    result.Result.Content = null;
                 }
 
             }
@@ -224,12 +249,13 @@ namespace ETrade.WebApi.Controllers
 
         [HttpGet]
         [Route("Get/{id:long}")]
-        public Response<MediaListDto> Get(long id, [FromQuery] string Authorization)
+        public IActionResult Get(long id, [FromQuery] string Authorization)
         {
-            var response = new Response<MediaListDto>();
+            var response = new Response<FileStreamResult>();
             try
             {
                 var result = _mediaManager.GetMedia(id);
+
                 if (result.ErrorMessages.Count > 0)
                 {
                     response.StatusCode = ResponseStatusCode.Error;
@@ -238,7 +264,11 @@ namespace ETrade.WebApi.Controllers
                 else
                 {
                     response.StatusCode = ResponseStatusCode.Success;
-                    response.Data = result.Result;
+                    var stream = new MemoryStream(result.Result.Content);
+                    
+                     return File(stream, result.Result.ContentType,result.Result.FileName);
+                    
+                    
                 }
 
             }
@@ -252,7 +282,7 @@ namespace ETrade.WebApi.Controllers
                 });
             }
 
-            return response;
+            return BadRequest(response);
         }
 
     }

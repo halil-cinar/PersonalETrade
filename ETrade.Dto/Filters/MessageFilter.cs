@@ -14,22 +14,26 @@ namespace ETrade.Dto.Filters
         {
             
         [JsonProperty(PropertyName= "chatId")]
-        public long ChatId { get; set; }
+        public long? ChatId { get; set; }
 
         [JsonProperty(PropertyName= "sentUserId")]
-        public long SentUserId { get; set; }
+        public long? SentUserId { get; set; }
 
         [JsonProperty(PropertyName= "answeredMessageId")]
         public long? AnsweredMessageId { get; set; }
         
         [JsonProperty(PropertyName= "message")]
-        public string Message { get; set; }
+        public string? Message { get; set; }
 
-        [JsonProperty(PropertyName= "sendingTime")]
-        public DateTime SendingTime { get; set;}
+        [JsonProperty(PropertyName = "minSendingTime")]
+        public DateTime? MinSendingTime { get; set; }
+
+        [JsonProperty(PropertyName = "maxSendingTime")]
+        public DateTime? MaxSendingTime { get; set; }
+
 
         [JsonProperty(PropertyName= "isContainsImages")]
-        public bool IsContainsImages { get; set; }
+        public bool? IsContainsImages { get; set; }
 
 
        

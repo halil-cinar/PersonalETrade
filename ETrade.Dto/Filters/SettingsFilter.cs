@@ -16,13 +16,12 @@ namespace ETrade.Dto.Filters
      
 
         [JsonProperty(PropertyName= "key")]
-        public string Key { get; set; }
+        public string? Key { get; set; }
 
         [JsonProperty(PropertyName= "description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        [JsonProperty(PropertyName= "defaultValue")]
-        public string DefaultValue { get; set; }
+        
 
     
         }

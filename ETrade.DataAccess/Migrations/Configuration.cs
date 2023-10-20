@@ -1,5 +1,6 @@
 ﻿namespace ETrade.DataAccess.Migrations
 {
+    using EnumsNET;
     using ETrade.Core.Utils;
     using ETrade.Entities.Concrete;
     using ETrade.Entities.Enums;
@@ -22,6 +23,9 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
+           
+            
+            
             if(context.Users.Any())
             {
                 return;
@@ -34,12 +38,14 @@
             var list = Enum.GetValues(typeof(MethodList));
             foreach( var item in list)
             {
+                var methodDesc=((MethodList)item).AsString(EnumFormat.Description);
+                    
                 var method = new MethodEntity
                 {
                     CreateIPAddress = "",
                     CreateTime = DateTime.Now,
                     CreateUserName = "",
-                    Description = "Method",
+                    Description = methodDesc!=null?methodDesc:"None",
                     isDeleted = false,
                     Key = (MethodList)item,
                     Name = Enum.GetName<MethodList>((MethodList)item),
@@ -146,9 +152,9 @@
 
             var viewCreateCodes = new List<string>
             {
-                " create view RoleMethodListView \nas select\nRM.ID,\n      RM.roleId,\n      RM.methodId,\n      RM.expiryDate,\n      RM.isDeleted,\n      RM.createUserName,\n      RM.createIpAddress,\n      RM.createTime,\n      RM.updateUserName,\n      RM.updateIpAddress,\n      RM.updateTime,\n      RM.lastTransaction,\n\t  R.name as roleName,\n      R.description as roleDescription,\n\t  M.[key] as methodKey,\n      M.name as methodname,\n      M.description as methodDescription\nfrom RoleMethod RM \nleft join Role R on RM.roleId=R.ID\nleft join Method M on RM.methodId=M.ID\nwhere M.isDeleted=0",
-                "USE PersonalETradeDatabase\nGO\n\n/****** Object:  View [dbo].[SessionListView]    Script Date: 15.10.2023 19:21:23 ******/\nSET ANSI_NULLS ON\nGO\n\nSET QUOTED_IDENTIFIER ON\nGO\n\ncreate view [dbo].[SessionListView] \nas select \nS.ID\n      ,S.identityId\n      ,S.userId\n      ,S.expiryDate\n      ,S.ipAddress\n      ,S.deviceType\n      ,S.notifyToken\n      ,S.token\n\t  ,U.name\n      ,U.surname\n      ,U.email\n      ,U.phoneNumber\n      \n      ,U.gender\n      ,U.birthDate\n      \n\t  ,S.isDeleted\n\t  ,I.userName\n\t  ,I.isActive\nfrom Session S \nleft join [User] U on S.userId=U.Id\nleft join [Identity] I on S.identityId=I.Id\nwhere S.isDeleted=0\nGO\n\n\n," ,
-                ""
+               "create view [dbo].[RoleMethodListView] \nas select\nRM.ID,\n      RM.roleId,\n      RM.methodId,\n      RM.expiryDate,\n      RM.isDeleted,\n      RM.createUserName,\n      RM.createIpAddress,\n      RM.createTime,\n      RM.updateUserName,\n      RM.updateIpAddress,\n      RM.updateTime,\n      RM.lastTransaction,\n\t  R.name as roleName,\n      R.description as roleDescription,\n\t  M.[key] as methodKey,\n      M.name as methodname,\n      M.description as methodDescription\nfrom RoleMethod RM \nleft join Role R on RM.roleId=R.ID\nleft join Method M on RM.methodId=M.ID\nwhere M.isDeleted=0 ",
+               "CREATE view [dbo].[SessionListView] \r\nas select \r\nS.ID\r\n      ,S.identityId\r\n      ,S.userId\r\n      ,S.expiryDate\r\n      ,S.ipAddress\r\n      ,S.deviceType\r\n      ,S.notifyToken\r\n      ,S.token\r\n\t  ,S.isActive\r\n\t  ,U.name\r\n      ,U.surname\r\n      ,U.email\r\n      ,U.phoneNumber\r\n      ,U.gender\r\n      ,U.birthDate\r\n      ,U.identityNumber,\r\n\t  U.profilePhotoId\r\n\t  ,S.isDeleted\r\n\t  ,I.userName\r\n\t  \r\n\t  ,S.createUserName, S.createIpAddress, S.createTime, S.updateUserName, S.updateIpAddress, S.updateTime, S.lastTransaction\r\nfrom Session S \r\nleft join [User] U on S.userId=U.Id\r\nleft join [Identity] I on S.identityId=I.Id\r\nwhere S.isDeleted=0",
+               
             };
 
 

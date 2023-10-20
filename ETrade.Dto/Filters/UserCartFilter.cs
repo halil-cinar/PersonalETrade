@@ -14,19 +14,23 @@ namespace ETrade.Dto.Filters
         {
             
         [JsonProperty(PropertyName= "userId")]
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         [JsonProperty(PropertyName= "productId")]
-        public long ProductId { get; set; }
+        public long? ProductId { get; set; }
 
         [JsonProperty(PropertyName= "isActive")]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
-        [JsonProperty(PropertyName= "count")]
-        public int Count { get; set; }
+        [JsonProperty(PropertyName = "minCount")]
+        public int? MinCount { get; set; }
 
-       
-    
-        }
+        [JsonProperty(PropertyName = "maxCount")]
+        public int? MaxCount { get; set; }
+
+
+
+
     }
+}
     

@@ -1,7 +1,9 @@
 ﻿using ETrade.Entities.Enums;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +26,13 @@ namespace ETrade.Dto.Dtos.Media
 
         [JsonProperty(PropertyName = "content")]
         public byte[] Content { get; set; }
+
+        [JsonProperty(PropertyName="contentType")]
+        public string ContentType { get; set; }
+
+
+
+
+
     }
 }

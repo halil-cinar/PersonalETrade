@@ -39,7 +39,7 @@ namespace ETrade.Entities.Concrete
         //[ForeignKey("AnsweredMessageId")]
         //public virtual MessageEntity AnsweredMessage { get; set; }
 
-        //public virtual ICollection<MessageEntity> ReplyingMessages { get; set; }
+        public virtual ICollection<MessageMediaEntity>  MessageMedias { get; set; }
 
 
 
