@@ -20,11 +20,11 @@ namespace ETrade.Core.ExtensionMethods
 
         public MailSender()
         {
-            this.smtpServer = "smtp-relay.brevo.com";
+            this.smtpServer = "";
             this.smtpPort = 587;
             this.smtpUsername = "ETrade";
-            this.smtpPassword = "xsmtpsib-9397117a52181487065e900e5e083dfdc1291cd2e2438728bd0cb898ec14532d-xhISbR2ZN6P45nrD";
-            this.smtpDisplayName = "halilcinar1260@outlook.com";
+            this.smtpPassword = "";
+            this.smtpDisplayName = "";
             this.smtpEnableSsl = true;
         }
 
